@@ -1,0 +1,28 @@
+#guest_mode {
+    width: 420px;
+    margin: auto;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+body {
+    background-size: cover;
+    background: url('for_guest.jpg') 50% 70% no-repeat fixed;
+}
+
+#my_button input[type="submit"] {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    border-radius: 30px;
+    background-color: #00008b;
+    color: #eee;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 220px;
+    height: 40px;
+}
+
+#my_button input[type="submit"]:hover {
+    background-color:#c41e3a;
+}
