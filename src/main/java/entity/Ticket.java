@@ -53,4 +53,14 @@ public class Ticket {
     }
 
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", route='" + route + '\'' +
+                ", dateTicket=" + dateTicket +
+                ", price=" + price +
+                ", status=" + status +
+                '}';
+    }
 }

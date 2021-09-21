@@ -7,13 +7,11 @@ const html = document.querySelector('html')
 const closeBtn = document.querySelector(".closeBtn")
 
 
-
-
 names.forEach(item => {
     item.onclick = function () {
         id = (item.previousSibling.textContent)
 
-        console.log(JSON.stringify({id_order : id}))
+        console.log(JSON.stringify({id_order: id}))
 
         const idObj = {
             "id_order": id
@@ -21,20 +19,33 @@ names.forEach(item => {
 
         const idJson = JSON.stringify(idObj);
 
-        const url = "http://localhost:8080/demo1_war_exploded/general";
+        const urlToGeneral = "http://localhost:8080/demo1_war_exploded/general";
 
         $.ajax({
-            url: url,
+            url: urlToGeneral,
             method: "post",
             data: idJson,
             contentType: "application/json",
-            error: function(message) {
+            error: function (message) {
                 console.log(message);
             },
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
+
+                getOkno.innerHTML = `
+<h3>Do you really want to order this ticket?</h3>
+<p>route: ${data.route} <br>
+price: ${data.price} <br>
+dateTicket: ${data.dateTicket} <br>
+status: ${data.status}</p>
+<form action="order" method="post">
+        <p><input class="button-order" onclick="alert('your order is accepted')" type="submit" value="yes"/></p>
+        
+</form>
+`
             }
         });
+
 
         getOkno.style.display = "block";
         zatemnenie.classList.add('zatemnenie');
@@ -42,12 +53,13 @@ names.forEach(item => {
         html.style.overflow = "hidden";
         closeBtn.style.opacity = 1;
         closeBtn.style.cursor = "pointer";
-
     }
 })
 
+
+
 closeBtn.onclick = function () {
-    //window.location = window.location.href
+    window.location = window.location.href
     zatemnenie.classList.remove('zatemnenie')
     getOkno.classList.remove('styleOkno')
     html.style.overflow = ""
@@ -55,3 +67,5 @@ closeBtn.onclick = function () {
     closeBtn.style.cursor = "default"
     getOkno.innerHTML = ``
 }
+
+

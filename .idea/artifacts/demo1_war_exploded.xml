@@ -13,13 +13,10 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="demo1" />
-          <element id="library" level="project" name="jdbc" />
-          <element id="library" level="application" name="jquery" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
-          <element id="library" level="project" name="mysql-connector-java-8.0.26" />
-          <element id="file-copy" path="$MAVEN_REPOSITORY$/org/json/json/20201115/json-20201115.jar" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">

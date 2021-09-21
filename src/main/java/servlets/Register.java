@@ -6,6 +6,7 @@ import entity.User;
 import helperForData.EmailValidator;
 import myException.EmailYetExist;
 import myException.NotCorrectEmail;
+import myLogger.Log;
 
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -38,7 +39,7 @@ public class Register extends HttpServlet {
 
                 HttpSession session = request.getSession(true);
                 session.setAttribute("id_user", email);
-
+                Log.addLog(Register.class.getName() + ": create session with user by email = " + email);
                 response.sendRedirect("general");
 
             } else {

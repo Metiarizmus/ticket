@@ -1,7 +1,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-
+<%@ page session="true" %>
+<%@ page errorPage="errors.jsp" %>
 
 <html>
 <head>
@@ -41,32 +42,16 @@
 
 
 <div id="historyBtn">
-    <form method="post" action="">
+    <form action="history" method="post" >
         <p><input class="button-history" type="submit" value="history order"/></p>
     </form>
 </div>
 
 
-<%
-    String userid = (String) session.getAttribute("id_user");
-%>
 
-<h4><%= userid %></h4>
 <div class="zatem">
     <div class="okno">
-        <h3>Do you really want to order this ticket? </h3>
-        <table>
-            <tr>
-                <td>${orderTicket.route}</td>
-                <td>${orderTicket.dateTicket}</td>
-                <td>${orderTicket.price}</td>
-                <td>${orderTicket.status}</td>
-            </tr>
-        </table>
 
-        <form action="order" method="post">
-            <p><input class="button-order" type="submit" value="yes"/></p>
-        </form>
     </div>
 </div>
 

@@ -1,7 +1,7 @@
 package entity;
 
 public class Comment {
-    private static int identificator  = 0;
+
     private int id;
     private Order order;
     private String commentary;
@@ -29,5 +29,14 @@ public class Comment {
 
     public void setCommentary(String commentary) {
         this.commentary = commentary;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", order=" + order +
+                ", commentary='" + commentary + '\'' +
+                '}';
     }
 }

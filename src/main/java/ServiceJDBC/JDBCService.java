@@ -2,7 +2,8 @@ package ServiceJDBC;
 
 import connectDB.DAOFactory;
 import connectDB.PropertyInf;
-import entity.StatusTicket;
+import entity.Comment;
+import entity.Order;
 import entity.Ticket;
 import entity.User;
 
@@ -35,14 +36,45 @@ public class JDBCService {
         return false;
     }
 
-    public void addOrderInDB(String idUser, int idOrder, String sql) {
+    public boolean addCommentInDB(Comment comment) {
         try (Connection connection = daoFactory) {
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("INSERT_COMMENT"))) {
 
+                String[] s = new String[]{comment.getCommentary(), String.valueOf(comment.getOrder().getId())};
+
+                int k = 1;
+                for (String value : s) {
+                    statement.setString(k++, value);
+                }
+                int n = statement.executeUpdate();
+                if (n > 0)
+                    return true;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return false;
+    }
+
+    public boolean addOrderInDB(Order order) {
+        try (Connection connection = daoFactory) {
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("INSERT_ORDER"))) {
+                String[] s = new String[]{String.valueOf(order.getStatusOrder()), String.valueOf(order.getDateOrder()),
+                                          String.valueOf(order.getTicketId().getId()),String.valueOf(order.getUserId().getEmail())
+                };
+
+                int k = 1;
+                for (String value : s) {
+                    statement.setString(k++, value);
+                }
+                int n = statement.executeUpdate();
+                if (n > 0)
+                    return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
     public Ticket getTicketById(int idOrder) {
@@ -69,7 +101,6 @@ public class JDBCService {
         return ticket;
     }
 
-
     public boolean getByEmail(String email, String password, String sql) {
         try (Connection conn = DAOFactory.getInstance().getConnection()) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -90,12 +121,32 @@ public class JDBCService {
         return false;
     }
 
+    public int getUserByEmail(String email) {
+        int k = 0;
+
+        try (Connection connection = daoFactory) {
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("GET_USER_BY_EMAIL"))) {
+                statement.setString(1, email);
+                try (ResultSet resultSet = statement.executeQuery()) {
+
+                    if(resultSet.next()) {
+                       k = resultSet.getInt("id");
+                    }
+
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return k;
+    }
+
     public List<Ticket> getAllTicket() {
         List<Ticket> list = new ArrayList<>();
 
-        try (Connection connection = DAOFactory.getInstance().getConnection()){
-            try (PreparedStatement statement =connection.prepareStatement("SELECT * FROM ticket.ticket") ){
-                try (ResultSet result = statement.executeQuery()){
+        try (Connection connection = DAOFactory.getInstance().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("GET_ALL_TICKET"))) {
+                try (ResultSet result = statement.executeQuery()) {
                     while (result.next()) {
                         list.add(getInfByTicket(result));
                     }
@@ -105,11 +156,35 @@ public class JDBCService {
             throwables.printStackTrace();
         }
 
-        if (list.isEmpty()){
+        if (list.isEmpty()) {
             System.err.println("list is null");
         }
         return list;
     }
+
+    public List<Order> getAllOrderForUser(int user_id) {
+        List<Order> list = new ArrayList<>();
+
+        try (Connection connection = DAOFactory.getInstance().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("GET_ORDER"))) {
+                statement.setInt(1,user_id);
+                try (ResultSet result = statement.executeQuery()) {
+                    while (result.next()) {
+                        list.add(getInfByOrder(result));
+                    }
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        if (list.isEmpty()) {
+            System.err.println("list is null");
+        }
+        return list;
+    }
+
+
 
     private Ticket getInfByTicket(ResultSet result) throws SQLException {
         Ticket ticket = new Ticket();
@@ -120,4 +195,28 @@ public class JDBCService {
         ticket.setStatus(result.getString("status"));
         return ticket;
     }
+
+    private Order getInfByOrder(ResultSet resultSet) throws SQLException {
+        Order order = new Order();
+
+        order.setId(resultSet.getInt("id"));
+        order.setStatusOrder(resultSet.getString("status"));
+        order.setDateOrder(resultSet.getTimestamp("date_order"));
+        order.setUser_id(resultSet.getInt("user_id"));
+        order.setTicket_id(resultSet.getInt("ticket_id"));
+
+        /*order.setUserId(resultSet.getObject("user_id",User.class));
+        order.setTicketId(resultSet.getObject("ticket_id",Ticket.class));*/
+        return order;
+    }
+
+    public static void main(String[] args) {
+
+        List<Ticket> listOrder = (new JDBCService().getAllTicket());
+        for (Ticket q : listOrder) {
+            System.out.println(q);
+        }
+
+    }
 }
+

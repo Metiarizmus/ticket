@@ -1,9 +1,11 @@
 package servlets;
 
 import ServiceJDBC.JDBCService;
+import com.google.gson.Gson;
 import connectDB.DAOFactory;
 import connectDB.PropertyInf;
 import entity.Ticket;
+import myLogger.Log;
 import org.json.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,19 +25,12 @@ import java.util.stream.Collectors;
 @WebServlet(name = "General", value = "/general")
 public class General extends HttpServlet {
 
-    private int def = 0;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<Ticket> list = new JDBCService().getAllTicket();
         request.setAttribute("tickets", list);
 
-        if (def!=0){
-            Ticket orderTicket = new JDBCService().getTicketById(def);
-            request.setAttribute("orderTicket", orderTicket);
-            getServletContext().getRequestDispatcher("/general.jsp").forward(request, response);
-        }else
         getServletContext().getRequestDispatcher("/general.jsp").forward(request, response);
 
     }
@@ -43,7 +38,7 @@ public class General extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        int k = 0;
         response.setContentType("application/json;charset=UTF-8");
 
         StringBuffer sb = new StringBuffer();
@@ -53,29 +48,29 @@ public class General extends HttpServlet {
         while ((line = reader.readLine()) != null)
             sb.append(line);
 
-
         try {
             JSONObject jsonObject = new JSONObject(sb.toString());
             String id = jsonObject.getString("id_order");
+            Log.addLog(General.class.getName() + ": get id witch we get when click on ticket route, id= " + id);
+            k = Integer.parseInt(id);
 
-            def = Integer.parseInt(id);
+            HttpSession session = request.getSession(true);
+            session.setAttribute("id_order", id);
+            Log.addLog(General.class.getName() + ": create session with id");
 
+            Ticket orderTicket = new JDBCService().getTicketById(k);
 
-
-           /* RequestDispatcher dispatcher = request.getRequestDispatcher("general.jsp");
-            request.setAttribute("orderTicket", orderTicket);
-            dispatcher.forward(request, response);*/
-            System.out.println(id);
-
-
-
+            String json = new Gson().toJson(orderTicket);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
+            Log.addLog(General.class.getName() + ": create the Ticket of object witch we make from bd and make a response to web");
 
         } catch (JSONException e) {
-            //throw new IOException("Error parsing JSON request string");
             System.out.println("errrrrorr");
         }
 
 
-    }
 
+    }
 }

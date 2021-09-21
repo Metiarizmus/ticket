@@ -3,13 +3,22 @@ package entity;
 import java.sql.Timestamp;
 
 public class Order {
-    private static int identificator  = 0;
 
     private int id;
-    StatusOrder statusOrder;
-    private Ticket ticket;
+    private StatusOrder statusOrder;
+    private Ticket ticketId;
     private Timestamp dateOrder;
-    private User user;
+    private User userId;
+
+    private int ticket_id;
+    private int user_id;
+
+    public Order() {
+    }
+
+    public void getNowDate() {
+        dateOrder = new Timestamp(System.currentTimeMillis());
+    }
 
     public int getId() {
         return id;
@@ -23,16 +32,16 @@ public class Order {
         return statusOrder;
     }
 
-    public void setStatusOrder(StatusOrder statusOrder) {
-        this.statusOrder = statusOrder;
+    public void setStatusOrder(String statusOrder) {
+        this.statusOrder = StatusOrder.valueOf(statusOrder);
     }
 
-    public Ticket getTicket() {
-        return ticket;
+    public Ticket getTicketId() {
+        return ticketId;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setTicketId(Ticket ticketId) {
+        this.ticketId = ticketId;
     }
 
     public Timestamp getDateOrder() {
@@ -43,11 +52,41 @@ public class Order {
         this.dateOrder = dateOrder;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
+
+    public int getTicket_id() {
+        return ticket_id;
+    }
+
+    public void setTicket_id(int ticket_id) {
+        this.ticket_id = ticket_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", statusOrder=" + statusOrder +
+                ", ticketId=" + ticketId +
+                ", dateOrder=" + dateOrder +
+                ", userId=" + userId +
+                ", ticket_id=" + ticket_id +
+                ", user_id=" + user_id +
+                '}';
+    }
+
 }

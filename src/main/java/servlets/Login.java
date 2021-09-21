@@ -3,6 +3,7 @@ package servlets;
 import ServiceJDBC.JDBCService;
 import connectDB.PropertyInf;
 import myException.NotEmailInSystem;
+import myLogger.Log;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,7 +33,7 @@ public class Login extends HttpServlet {
 
             HttpSession session = request.getSession(true);
             session.setAttribute("id_user", email);
-
+            Log.addLog(Login.class.getName() + ": create session with user by email = " + email);
             response.sendRedirect("general");
         }else {
             throw new NotEmailInSystem("there is no such email in the system or your password not correct");
