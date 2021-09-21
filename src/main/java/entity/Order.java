@@ -9,6 +9,7 @@ public class Order {
     private Ticket ticketId;
     private Timestamp dateOrder;
     private User userId;
+    private Comment comment;
 
     private int ticket_id;
     private int user_id;
@@ -76,6 +77,14 @@ public class Order {
         this.user_id = user_id;
     }
 
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -84,9 +93,9 @@ public class Order {
                 ", ticketId=" + ticketId +
                 ", dateOrder=" + dateOrder +
                 ", userId=" + userId +
+                ", comment=" + comment +
                 ", ticket_id=" + ticket_id +
                 ", user_id=" + user_id +
                 '}';
     }
-
 }

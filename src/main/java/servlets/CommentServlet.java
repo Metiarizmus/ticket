@@ -35,8 +35,9 @@ public class CommentServlet extends HttpServlet {
 
         if (service.addCommentInDB(comment)) {
             Log.addLog(CommentServlet.class.getName() + " add comment in db");
+            System.out.println("comment add in db");
         }
 
-        response.sendRedirect("history");
+        response.sendRedirect("general");
     }
 }

@@ -14,7 +14,6 @@ idForItem.forEach(item => {
 })
 
 
-
 st.forEach(item => {
     item.onclick = function () {
         id = (item.previousSibling.textContent)
@@ -51,12 +50,7 @@ function commentClick() {
 </form>
 `
 
-    getOkno.style.display = "block";
-    zatemnenie.classList.add('zatemnenie');
-    getOkno.classList.add('styleOkno');
-    html.style.overflow = "hidden";
-    closeBtn.style.opacity = 1;
-    closeBtn.style.cursor = "pointer";
+   closeModal();
 }
 
 function validateForm() {
@@ -73,4 +67,32 @@ function validateForm() {
         alert("your id not correct");
         return false;
     }
+}
+
+function commentChangeClick() {
+
+}
+
+function orderSend() {
+    getOkno.innerHTML = `
+<h3>please choose id order for send it to your email</h3>
+
+<form name="form_comment" action="sendOrder" onsubmit="return validateForm()" method="post" >
+        <p><input type="text" name="id_history_order" placeholder="id"></p>
+        
+        <p><input class="send_comment" type="submit" value="send"/></p>        
+</form>
+`
+
+    closeModal();
+
+}
+
+function closeModal() {
+    getOkno.style.display = "block";
+    zatemnenie.classList.add('zatemnenie');
+    getOkno.classList.add('styleOkno');
+    html.style.overflow = "hidden";
+    closeBtn.style.opacity = 1;
+    closeBtn.style.cursor = "pointer";
 }

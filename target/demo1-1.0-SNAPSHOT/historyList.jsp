@@ -6,6 +6,7 @@
 <head>
     <title>History</title>
     <link rel="stylesheet" type="text/css" href="style_for_history.css">
+    <link rel="stylesheet" type="text/css" href="style_for_general.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -39,6 +40,7 @@
                 <td><c:out value="${history.ticketId.route}"/></td>
                 <td><c:out value="${history.ticketId.dateTicket}"/></td>
                 <td><c:out value="${history.ticketId.price}"/></td>
+                <td><c:out value="${history.getComment().getCommentary()}"/></td>
             </tr>
 
         </c:forEach>
@@ -56,6 +58,10 @@
 
 
 <button id="btn_comment" onclick="commentClick();"> add comment</button>
+
+<button id="btn_comment_change" onclick="commentChangeClick();"> change comment</button>
+
+<button id="btn_order_send" onclick="orderSend();"> send order</button>
 
 <div class="zatem">
     <div class="okno">

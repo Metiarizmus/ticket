@@ -162,12 +162,33 @@ public class JDBCService {
         return list;
     }
 
-    public List<Order> getAllOrderForUser(int user_id) {
+    public List<Comment> getAllComment() {
+        List<Comment> list = new ArrayList<>();
+
+        try (Connection connection = DAOFactory.getInstance().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("GET_COMMENT"))) {
+                try (ResultSet result = statement.executeQuery()) {
+                    while (result.next()) {
+                        list.add(getInfByComment(result));
+                    }
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        if (list.isEmpty()) {
+            System.err.println("list is null");
+        }
+        return list;
+    }
+
+    public List<Order> getAllOrderForUser(String email) {
         List<Order> list = new ArrayList<>();
 
         try (Connection connection = DAOFactory.getInstance().getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("GET_ORDER"))) {
-                statement.setInt(1,user_id);
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("FULL_ORDER_WITH_COMMENT"))) {
+                statement.setString(1,email);
                 try (ResultSet result = statement.executeQuery()) {
                     while (result.next()) {
                         list.add(getInfByOrder(result));
@@ -184,8 +205,6 @@ public class JDBCService {
         return list;
     }
 
-
-
     private Ticket getInfByTicket(ResultSet result) throws SQLException {
         Ticket ticket = new Ticket();
         ticket.setId(result.getInt("id"));
@@ -196,26 +215,49 @@ public class JDBCService {
         return ticket;
     }
 
+
     private Order getInfByOrder(ResultSet resultSet) throws SQLException {
         Order order = new Order();
+        Ticket ticket = new Ticket();
+        User user = new User();
+        Comment comment = new Comment();
 
         order.setId(resultSet.getInt("id"));
         order.setStatusOrder(resultSet.getString("status"));
         order.setDateOrder(resultSet.getTimestamp("date_order"));
-        order.setUser_id(resultSet.getInt("user_id"));
-        order.setTicket_id(resultSet.getInt("ticket_id"));
+        ticket.setRoute(resultSet.getString("route"));
+        ticket.setDateTicket(resultSet.getTimestamp("time"));
+        ticket.setPrice(resultSet.getDouble("price"));
+        order.setTicketId(ticket);
+        comment.setCommentary(resultSet.getString("message"));
+        order.setComment(comment);
 
-        /*order.setUserId(resultSet.getObject("user_id",User.class));
-        order.setTicketId(resultSet.getObject("ticket_id",Ticket.class));*/
         return order;
     }
 
+    private Comment getInfByComment(ResultSet resultSet) throws SQLException {
+        Comment comment = new Comment();
+        Order order = new Order();
+
+
+        comment.setId(resultSet.getInt("id"));
+        comment.setCommentary(resultSet.getString("message"));
+
+        order.setId(resultSet.getInt("order_id"));
+        order.setStatusOrder(resultSet.getString("status"));
+        order.setDateOrder(resultSet.getTimestamp("date_order"));
+
+        order.setUser_id(resultSet.getInt("user_id"));
+        order.setTicket_id(resultSet.getInt("ticket_id"));
+        comment.setOrder(order);
+
+        return comment;
+    }
     public static void main(String[] args) {
 
-        List<Ticket> listOrder = (new JDBCService().getAllTicket());
-        for (Ticket q : listOrder) {
-            System.out.println(q);
-        }
+        List<Order> listOrder = (new JDBCService().getAllOrderForUser("admin@mail.ru"));
+
+        System.out.println(listOrder.get(0).getComment().getCommentary());
 
     }
 }
