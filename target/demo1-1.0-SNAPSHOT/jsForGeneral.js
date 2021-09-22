@@ -11,8 +11,6 @@ names.forEach(item => {
     item.onclick = function () {
         id = (item.previousSibling.textContent)
 
-        console.log(JSON.stringify({id_order: id}))
-
         const idObj = {
             "id_order": id
         };
