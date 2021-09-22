@@ -9,6 +9,8 @@
     <title>User mode</title>
     <link rel="stylesheet" type="text/css" href="style_for_general.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
 </head>
 <body>
 
@@ -59,6 +61,15 @@
 <button class="closeBtn">
     Close
 </button>
+
+<p>if you wanna get pdf your ticket - click on route then click on close and in textArea will be your json ticket</p>
+
+<div id="content">
+    <p><textarea id="textArea" name="textComment" cols="30" rows="5"> </textarea></p>
+</div>
+<div id="editor"></div>
+<button id="cmd">Generate PDF</button>
+
 
 <script src="jsForGeneral.js"></script>
 </body>

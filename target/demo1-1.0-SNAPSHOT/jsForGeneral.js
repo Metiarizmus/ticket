@@ -36,14 +36,15 @@ names.forEach(item => {
 price: ${data.price} <br>
 dateTicket: ${data.dateTicket} <br>
 status: ${data.status}</p>
+
 <form action="order" method="post">
         <p><input class="button-order" onclick="alert('your order is accepted')" type="submit" value="yes"/></p>
         
 </form>
 `
+                document.getElementById('textArea').innerHTML=JSON.stringify(data);
             }
         });
-
 
         getOkno.style.display = "block";
         zatemnenie.classList.add('zatemnenie');
@@ -57,7 +58,7 @@ status: ${data.status}</p>
 
 
 closeBtn.onclick = function () {
-    window.location = window.location.href
+
     zatemnenie.classList.remove('zatemnenie')
     getOkno.classList.remove('styleOkno')
     html.style.overflow = ""
@@ -66,4 +67,17 @@ closeBtn.onclick = function () {
     getOkno.innerHTML = ``
 }
 
+var doc = new jsPDF();
+var specialElementHandlers = {
+    '#editor': function (element, renderer) {
+        return true;
+    }
+};
 
+$('#cmd').click(function () {
+    doc.fromHTML($('#content').html(), 15, 15, {
+        'width': 170,
+        'elementHandlers': specialElementHandlers
+    });
+    doc.save('sample-file.pdf');
+});

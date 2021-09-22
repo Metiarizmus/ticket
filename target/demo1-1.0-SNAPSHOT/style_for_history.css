@@ -118,22 +118,3 @@ td:nth-child(2) {
     transform: scale(1.1);
 }
 
-.closeBtn {
-    width: 100px;
-    border-radius: 25px;
-    background: red;
-    border: 2px solid red;
-    font-family: sans-serif;
-    height: 35px;
-    box-shadow: 0px 0px 4px 1px red;
-    color: #fff;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    cursor: default;
-    transition: 0.4s;
-    opacity: 0;
-}
-.closeBtn:hover {
-    transform: scale(1.1);
-}
