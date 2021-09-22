@@ -1,9 +1,8 @@
 const st = document.querySelectorAll(".status");
-const btnAccept = document.querySelectorAll(".btn_accept");
-const btnClose = document.querySelectorAll(".btn_close");
 const getOkno = document.querySelector('.okno')
 const zatemnenie = document.querySelector('.zatem')
 const idForItem = document.querySelectorAll(".item_id")
+const statusBtn = document.querySelectorAll(".status_btn")
 
 let id_array = [];
 
@@ -17,23 +16,27 @@ idForItem.forEach(item => {
 st.forEach(item => {
     item.onclick = function () {
         id = (item.previousSibling.textContent)
-        console.log(id)
 
-        item.firstElementChild.classList.add("show")
+        console.log(JSON.stringify({id_order: id}))
 
-        btnClose.forEach(close => {
-            close.onclick = function () {
-                item.textContent = 'CLOSED'
-                item.style.background = "#935eff"
-                item.firstElementChild.classList.remove("show")
-            }
-        })
+        const idObj = {
+            "id_order": id
+        };
 
-        btnAccept.forEach(accept => {
-            accept.onclick = function () {
-                item.innerText = "ACCEPTED"
-                item.style.background = "#3498DB"
-                item.firstElementChild.classList.remove("show")
+        const idJson = JSON.stringify(idObj);
+
+        const urlToGeneral = "http://localhost:8080/demo1_war_exploded/changeStatus";
+
+        $.ajax({
+            url: urlToGeneral,
+            method: "post",
+            data: idJson,
+            contentType: "application/json",
+            error: function (message) {
+                console.log(message);
+            },
+            success: function (data) {
+                console.log(data);
             }
         })
     }
@@ -69,16 +72,16 @@ function validateForm() {
     }
 }
 
-function commentChangeClick() {
-
-}
 
 function orderSend() {
     getOkno.innerHTML = `
 <h3>please choose id order for send it to your email</h3>
+<h3>you need to disable the protection of your account!!!</h3>
 
 <form name="form_comment" action="sendOrder" onsubmit="return validateForm()" method="post" >
         <p><input type="text" name="id_history_order" placeholder="id"></p>
+        <p><input type="text" name="address" placeholder="your gmail address"></p>
+        <p><input type="text" name="password" placeholder="your gmail password"></p>
         
         <p><input class="send_comment" type="submit" value="send"/></p>        
 </form>
@@ -96,3 +99,10 @@ function closeModal() {
     closeBtn.style.opacity = 1;
     closeBtn.style.cursor = "pointer";
 }
+
+
+
+statusBtn.forEach( item => {
+    item.textContent == "ACCEPTED" ? item.style.background = "#3498DB" : item.style.background = "#b64545";
+})
+

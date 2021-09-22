@@ -28,13 +28,10 @@
         <c:forEach var="history" items="${historyOrder}">
 
             <tr>
-                <td class="item_id"><c:out value="${history.id}"/></td><td class="status" title="click for change status"><c:out value="${history.statusOrder}"/>
-                <div class="dropdown">
-                    <form action="" method="post">
-                        <button class="btn_accept" type="submit">Accept</button>
-                        <button class="btn_close" type="submit">Close</button>
-                    </form>
-                </div>
+                <td class="item_id"><c:out value="${history.id}"/></td><td class="status" title="click for change status">
+                <form action="changeStatus" method="post">
+                    <button class="status_btn"><c:out value="${history.statusOrder}"/></button>
+                </form>
                 </td>
                 <td><c:out value="${history.dateOrder}"/></td>
                 <td><c:out value="${history.ticketId.route}"/></td>
@@ -59,8 +56,6 @@
 
 <button id="btn_comment" onclick="commentClick();"> add comment</button>
 
-<button id="btn_comment_change" onclick="commentChangeClick();"> change comment</button>
-
 <button id="btn_order_send" onclick="orderSend();"> send order</button>
 
 <div class="zatem">
@@ -69,9 +64,9 @@
     </div>
 </div>
 
-<%--<button class="closeBtn">
+<button class="closeBtn">
     Close
-</button>--%>
+</button>
 
 <script src="jsForHistory.js"></script>
 </body>

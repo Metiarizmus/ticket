@@ -205,6 +205,19 @@ public class JDBCService {
         return list;
     }
 
+    public void updateStatus(int id) {
+
+        try (Connection connection = DAOFactory.getInstance().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("UPDATE_STATUS_ORDER"))) {
+                statement.setInt(1,id);
+                statement.executeUpdate();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
     private Ticket getInfByTicket(ResultSet result) throws SQLException {
         Ticket ticket = new Ticket();
         ticket.setId(result.getInt("id"));
@@ -253,12 +266,6 @@ public class JDBCService {
 
         return comment;
     }
-    public static void main(String[] args) {
 
-        List<Order> listOrder = (new JDBCService().getAllOrderForUser("admin@mail.ru"));
-
-        System.out.println(listOrder.get(0).getComment().getCommentary());
-
-    }
 }
 
