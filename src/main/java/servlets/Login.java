@@ -1,11 +1,10 @@
 package servlets;
 
-import ServiceJDBC.JDBCService;
+import ServiceJDBC.JDBCServiceUser;
 import connectDB.PropertyInf;
 import myException.NotEmailInSystem;
 import myLogger.Log;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -15,7 +14,7 @@ import java.io.IOException;
 @WebServlet(name = "LogInSystem", value = "/enterToSystem")
 public class Login extends HttpServlet {
     private final PropertyInf propertyInf = new PropertyInf();
-    private JDBCService service = new JDBCService();
+    private JDBCServiceUser service = new JDBCServiceUser();
 
 
     @Override

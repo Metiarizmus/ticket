@@ -9,7 +9,7 @@
 <body>
 
 <div id="registration">
-    <form method="post" action="registration">
+    <form name="data_register" action="registration" onsubmit="return validateForm()" method="post">
         <p><span class="name"> </span><input type="text" name="name" placeholder="Name"></p>
         <p><span class="email"> </span><input type="text" name="email" placeholder="Email"/></p>
         <p><span class="password"> </span><input type="text" name="password" placeholder="Password"/></p>
@@ -18,5 +18,7 @@
     <p><a href="guest" class="guest">As a guest</a> &nbsp;&nbsp;<a href="login.jsp" class="logIn">LogIn</a><span
             class="fontawesome-arrow-right"></span></p>
 </div>
+
+<script src="jsForRegistration.js"></script>
 </body>
 </html>

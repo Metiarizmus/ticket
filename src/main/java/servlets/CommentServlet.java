@@ -1,9 +1,11 @@
 package servlets;
 
-import ServiceJDBC.JDBCService;
+import ServiceJDBC.JDBCServiceComment;
+import connectDB.DBConnection;
 import entity.Comment;
 import entity.Order;
 import myLogger.Log;
+import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,6 +14,8 @@ import java.io.IOException;
 
 @WebServlet(name = "comment", value = "/comment")
 public class CommentServlet extends HttpServlet {
+    private static final Logger log = Logger.getLogger(CommentServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -22,19 +26,12 @@ public class CommentServlet extends HttpServlet {
         String idOrderForComment = request.getParameter("id_history_order");
         String textComment = request.getParameter("textComment");
 
-        Log.addLog(CommentServlet.class.getName() + " get text of comment from web to object");
+        log.info("get text of comment from web to object");
 
-        Comment comment = new Comment();
-        Order order = new Order();
-        order.setId(Integer.parseInt(idOrderForComment));
+        JDBCServiceComment service = new JDBCServiceComment();
 
-        comment.setCommentary(textComment);
-        comment.setOrder(order);
-
-        JDBCService service = new JDBCService();
-
-        if (service.addCommentInDB(comment)) {
-            Log.addLog(CommentServlet.class.getName() + " add comment in db");
+        if (service.addCommentInDB(textComment, Integer.parseInt(idOrderForComment))) {
+            log.info("add comment in db");
             System.out.println("comment add in db");
         }
 

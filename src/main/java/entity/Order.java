@@ -1,32 +1,25 @@
 package entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Timestamp;
 
 public class Order {
 
-    private int id;
-    private StatusOrder statusOrder;
-    private Ticket ticketId;
-    private Timestamp dateOrder;
-    private User userId;
-    private Comment comment;
+    @Getter @Setter private int id;
 
-    private int ticket_id;
-    private int user_id;
+
+    private StatusOrder statusOrder;
+    @Getter @Setter private Ticket ticketId;
+    @Getter @Setter private Timestamp dateOrder;
+    @Getter @Setter private User userId;
+    @Getter @Setter private Comment comment;
+
+    @Getter @Setter private int ticket_id;
+    @Getter @Setter private int user_id;
 
     public Order() {
-    }
-
-    public void getNowDate() {
-        dateOrder = new Timestamp(System.currentTimeMillis());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public StatusOrder getStatusOrder() {
@@ -35,54 +28,6 @@ public class Order {
 
     public void setStatusOrder(String statusOrder) {
         this.statusOrder = StatusOrder.valueOf(statusOrder);
-    }
-
-    public Ticket getTicketId() {
-        return ticketId;
-    }
-
-    public void setTicketId(Ticket ticketId) {
-        this.ticketId = ticketId;
-    }
-
-    public Timestamp getDateOrder() {
-        return dateOrder;
-    }
-
-    public void setDateOrder(Timestamp dateOrder) {
-        this.dateOrder = dateOrder;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
-    public int getTicket_id() {
-        return ticket_id;
-    }
-
-    public void setTicket_id(int ticket_id) {
-        this.ticket_id = ticket_id;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public Comment getComment() {
-        return comment;
-    }
-
-    public void setComment(Comment comment) {
-        this.comment = comment;
     }
 
     @Override
@@ -98,4 +43,6 @@ public class Order {
                 ", user_id=" + user_id +
                 '}';
     }
+
+
 }

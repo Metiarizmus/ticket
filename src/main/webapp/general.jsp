@@ -15,7 +15,7 @@
 <body>
 
 
-<div id="user_mode">
+<div class="user_mode">
     <table border="3">
 
         <tr>

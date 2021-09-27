@@ -15,7 +15,7 @@
 <body>
 
 
-<div id="user_mode">
+<div class="user_mode">
     <table border="3">
 
         <tr>
@@ -62,7 +62,7 @@
     Close
 </button>
 
-<p>if you wanna get pdf your ticket - click on route then click on close and in textArea will be your json ticket"</p>
+<p>if you wanna get pdf your ticket - click on route then click on close and in textArea will be your json ticket</p>
 
 <div id="content">
     <p><textarea id="textArea" name="textComment" cols="30" rows="5"> </textarea></p>

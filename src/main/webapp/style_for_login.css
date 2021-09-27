@@ -1,9 +1,9 @@
 body {
-    background: url('https://phonoteka.org/uploads/posts/2021-05/1620053935_34-phonoteka_org-p-fon-transport-41.jpg') 100% 100% no-repeat;
+    background: url('fone_index.jpg') 100% 100% no-repeat;
     background-size: cover;
 }
 
-#loging {
+.loging {
     margin: 150px auto;
     width: 220px;
 }
@@ -21,7 +21,7 @@ input {
 
 
 
-#loging form input[type="submit"] {
+.loging form input[type="submit"] {
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -34,15 +34,15 @@ input {
     height: 40px;
 }
 
-#loging form input[type="submit"]:hover {
+.loging form input[type="submit"]:hover {
     background-color:#c41e3a;
 }
 
-#loging > p {
+.loging > p {
     text-align: center;
 }
 
-#loging form input[type="text"] {
+.loging form input[type="text"] {
     background-color: #4e91dd;
     height: 50px;
     width: 220px;

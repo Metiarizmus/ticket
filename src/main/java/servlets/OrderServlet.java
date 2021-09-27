@@ -1,11 +1,12 @@
 package servlets;
 
 
-import ServiceJDBC.JDBCService;
+import ServiceJDBC.JDBCServiceTicket;
 
+import ServiceJDBC.JDBCServiceOrder;
 import entity.*;
 import myException.TicketNotAvailable;
-import myLogger.Log;
+import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,6 +17,7 @@ import java.io.IOException;
 @WebServlet(name = "order", value = "/order")
 public class OrderServlet extends HttpServlet {
 
+    private static final Logger log = Logger.getLogger(OrderServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,30 +31,19 @@ public class OrderServlet extends HttpServlet {
         String s = String.valueOf(session1.getAttribute("id_order"));
         int k = Integer.parseInt(s);
 
-        Ticket orderTicket = new JDBCService().getTicketById(k);
+        Ticket orderTicket = new JDBCServiceTicket().getTicketById(k);
         orderTicket.setId(k);
-        Log.addLog(OrderServlet.class.getName() + ": get session id that we click on web and make Ticket by this id, id in orderServlet= " + k);
+        log.info(": get session id that we click on web and make Ticket by this id, id in orderServlet= " + k);
         System.out.println(orderTicket);
 
-        if (orderTicket.getStatus().equals(String.valueOf(StatusTicket.AVAILABLE))) {
+        if (orderTicket.getStatus().equals(StatusTicket.AVAILABLE)) {
             HttpSession session2 = request.getSession();
             String email = (String) session2.getAttribute("id_user");
 
-            User user = new User();
-            user.setEmail(email);
 
-
-            Order order = new Order();
-            order.getNowDate();
-            order.setTicketId(orderTicket);
-            order.setUserId(user);
-            order.setStatusOrder(String.valueOf(StatusOrder.ACCEPTED));
-
-            if(new JDBCService().addOrderInDB(order)){
-                Log.addLog(OrderServlet.class.getName() + ": create order and put it in db");
-
-                System.out.println(OrderServlet.class.getName() + " " + order);
-
+            if(new JDBCServiceOrder().addOrderInDB(email,k)){
+                log.info("create order and put it in db");
+                System.out.println("order servlet order is add");
                 response.sendRedirect("general");
             }
 

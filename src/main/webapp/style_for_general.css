@@ -1,4 +1,4 @@
-#user_mode {
+.user_mode {
     width: 460px; /* Ширина таблицы */
     margin: auto; /* Выравниваем таблицу по центру окна  */
     font-family: 'Open Sans', Arial, sans-serif;
@@ -21,10 +21,9 @@
 }
 
 .styleOkno {
-    width: 500px;
-    height: 250px;
+    width:30%;
+    height: 30%;
     text-align: center;
-    padding: 15px;
     border: 3px solid #fff;
     border-radius: 20px;
     background: #fff;

@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="style_for_login.css">
 </head>
 <body>
-<div id="loging">
+<div class="loging">
     <form method="post" action="enterToSystem">
         <p><span class="email"> </span><input type="text" name="email" placeholder="Email"/></p>
         <p><span class="password"> </span><input type="text" name="password" placeholder="Password"/></p>

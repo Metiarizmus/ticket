@@ -1,35 +1,22 @@
 package entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Comment {
 
+
+    @Getter
+    @Setter
     private int id;
+    @Getter
+    @Setter
     private Order order;
+    @Getter
+    @Setter
     private String commentary;
 
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public String getCommentary() {
-        return commentary;
-    }
-
-    public void setCommentary(String commentary) {
-        this.commentary = commentary;
-    }
 
     @Override
     public String toString() {

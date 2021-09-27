@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div id="guest_mode">
+<div class="guest_mode">
     <table border="3">
 
         <tr>
@@ -31,7 +31,6 @@
             </tr>
 
         </c:forEach>
-
 
     </table>
 </div>

@@ -56,9 +56,15 @@ status: ${data.status}</p>
 })
 
 
+closeBtn.addEventListener("click", function () {
+    console.log("click on close")
+    closePopup();
+})
 
-closeBtn.onclick = function () {
 
+
+
+function closePopup() {
     zatemnenie.classList.remove('zatemnenie')
     getOkno.classList.remove('styleOkno')
     html.style.overflow = ""

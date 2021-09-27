@@ -1,12 +1,10 @@
 package servlets;
 
-import ServiceJDBC.JDBCService;
+import ServiceJDBC.JDBCServiceTicket;
+import ServiceJDBC.JDBCServiceUser;
 import com.google.gson.Gson;
-import connectDB.DAOFactory;
-import connectDB.PropertyInf;
 import entity.Ticket;
 import myLogger.Log;
-import org.json.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,13 +12,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.*;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @WebServlet(name = "General", value = "/general")
 public class General extends HttpServlet {
@@ -28,7 +20,7 @@ public class General extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Ticket> list = new JDBCService().getAllTicket();
+        List<Ticket> list = new JDBCServiceTicket().getAllTicket();
         request.setAttribute("tickets", list);
 
         getServletContext().getRequestDispatcher("/general.jsp").forward(request, response);
@@ -58,7 +50,7 @@ public class General extends HttpServlet {
             session.setAttribute("id_order", id);
             Log.addLog(General.class.getName() + ": create session with id");
 
-            Ticket orderTicket = new JDBCService().getTicketById(k);
+            Ticket orderTicket = new JDBCServiceTicket().getTicketById(k);
 
             String json = new Gson().toJson(orderTicket);
             response.setContentType("application/json");

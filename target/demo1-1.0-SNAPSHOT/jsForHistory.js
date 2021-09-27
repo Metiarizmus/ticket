@@ -57,7 +57,7 @@ function commentClick() {
 }
 
 function validateForm() {
-    let x = document.forms["form_comment"]["id_history_order"].value;
+    let x = document.forms["data_register"]["id_history_order"].value;
     let t = 0;
 
     id_array.forEach(i => {

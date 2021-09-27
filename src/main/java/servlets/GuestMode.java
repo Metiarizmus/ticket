@@ -1,6 +1,7 @@
 package servlets;
 
-import ServiceJDBC.JDBCService;
+import ServiceJDBC.JDBCServiceTicket;
+import ServiceJDBC.JDBCServiceUser;
 import entity.Ticket;
 
 import javax.servlet.*;
@@ -15,7 +16,7 @@ public class GuestMode extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Ticket> list = new JDBCService().getAllTicket();
+        List<Ticket> list = new JDBCServiceTicket().getAllTicket();
         request.setAttribute("tickets_for_guest", list);
         getServletContext().getRequestDispatcher("/guest.jsp").forward(request, response);
     }

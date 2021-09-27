@@ -1,7 +1,6 @@
 package servlets;
 
-import ServiceJDBC.JDBCService;
-import entity.Order;
+import ServiceJDBC.JDBCServiceUser;
 import myLogger.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +10,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "changeStatus", value = "/changeStatus")
 public class Change extends HttpServlet {
@@ -22,7 +20,7 @@ public class Change extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JDBCService service = new JDBCService();
+        JDBCServiceUser service = new JDBCServiceUser();
 
         int k = 0;
         response.setContentType("application/json;charset=UTF-8");

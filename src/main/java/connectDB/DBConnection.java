@@ -1,14 +1,17 @@
 package connectDB;
 
+import org.apache.log4j.Logger;
+
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DAOFactory {
-    private static DAOFactory instance;
+public class DBConnection {
+    private static DBConnection instance;
     private Connection connection;
 
+    private static final Logger log = Logger.getLogger(DBConnection.class);
     private static final PropertyInf inf = new PropertyInf();
     private static final String URL;
     private static final String LOGIN;
@@ -21,37 +24,35 @@ public class DAOFactory {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            e.printStackTrace();
+            log.error("error in class.forName");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            log.error("class not found");
         }
     }
 
-    private DAOFactory() {
+    private DBConnection() {
 
         try {
             this.connection = DriverManager.getConnection(URL,LOGIN,PASSWORD);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            System.err.println("Connection error");
+            log.error("connection error");
         }
     }
 
     public Connection getConnection() {
-
         return connection;
     }
 
-    public static DAOFactory getInstance() {
+    public static DBConnection getInstance() {
         if (instance == null) {
-            instance = new DAOFactory();
+            instance = new DBConnection();
         }else {
             try {
                 if (instance.getConnection().isClosed()) {
-                    instance = new DAOFactory();
+                    instance = new DBConnection();
                 }
             } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                log.error("sqlException error");
             }
         }
         return instance;

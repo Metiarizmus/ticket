@@ -1,6 +1,6 @@
 package servlets;
 
-import ServiceJDBC.JDBCService;
+import ServiceJDBC.JDBCServiceUser;
 import connectDB.PropertyInf;
 import entity.User;
 import helperForData.EmailValidator;
@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebServlet(name = "Registration", value = "/registration")
 public class Register extends HttpServlet {
 
-    private final JDBCService service = new JDBCService();
+    private final JDBCServiceUser service = new JDBCServiceUser();
     private final PropertyInf propertyInf = new PropertyInf();
     private final EmailValidator validator = new EmailValidator();
 
