@@ -72,16 +72,23 @@ public class JDBCServiceUser {
         return k;
     }
 
-    public void updateStatus(int id) {
+    public boolean updateStatus(int id) {
 
+        int k = 0;
         try (Connection connection = DBConnection.getInstance().getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("UPDATE_STATUS_ORDER"))) {
                 statement.setInt(1,id);
-                statement.executeUpdate();
+                 k = statement.executeUpdate();
+
+                 if(k!=0) {
+                     return true;
+                 }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        return false;
 
     }
 

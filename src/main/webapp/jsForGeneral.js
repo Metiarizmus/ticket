@@ -17,7 +17,7 @@ names.forEach(item => {
 
         const idJson = JSON.stringify(idObj);
 
-        const urlToGeneral = "http://localhost:8080/demo1_war_exploded/general";
+        const urlToGeneral = "http://localhost:8080/demo1_war_exploded/helperData";
 
         $.ajax({
             url: urlToGeneral,

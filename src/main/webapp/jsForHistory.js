@@ -17,15 +17,15 @@ st.forEach(item => {
     item.onclick = function () {
         id = (item.previousSibling.textContent)
 
-        console.log(JSON.stringify({id_order: id}))
+        console.log(JSON.stringify({id_order_status: id}))
 
         const idObj = {
-            "id_order": id
+            "id_order_status": id
         };
 
         const idJson = JSON.stringify(idObj);
 
-        const urlToGeneral = "http://localhost:8080/demo1_war_exploded/changeStatus";
+        const urlToGeneral = "http://localhost:8080/demo1_war_exploded/helperData";
 
         $.ajax({
             url: urlToGeneral,

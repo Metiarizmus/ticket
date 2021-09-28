@@ -1,10 +1,7 @@
 package servlets;
 
 import ServiceJDBC.JDBCServiceComment;
-import connectDB.DBConnection;
-import entity.Comment;
-import entity.Order;
-import myLogger.Log;
+
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -33,6 +30,8 @@ public class CommentServlet extends HttpServlet {
         if (service.addCommentInDB(textComment, Integer.parseInt(idOrderForComment))) {
             log.info("add comment in db");
             System.out.println("comment add in db");
+        }else {
+            log.error("comment doesnt add in db");
         }
 
         response.sendRedirect("general");

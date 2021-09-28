@@ -1,21 +1,21 @@
 package servlets;
 
 import ServiceJDBC.JDBCServiceOrder;
-import ServiceJDBC.JDBCServiceUser;
 import com.google.gson.Gson;
 import entity.Order;
+import org.apache.log4j.Logger;
 import tls.Sender;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(name = "sendOrder", value = "/sendOrder")
 public class Send extends HttpServlet {
 
+    private static final Logger log = Logger.getLogger(Send.class);
 
 
     @Override
@@ -55,7 +55,7 @@ public class Send extends HttpServlet {
 
         Sender sender = new Sender(address,password);
         sender.send("your ticket order",jsonOrder,address,address);
-
+        log.info("sent order to email");
         getServletContext().getRequestDispatcher("/responseForEmail.jsp").forward(request, response);
 
     }

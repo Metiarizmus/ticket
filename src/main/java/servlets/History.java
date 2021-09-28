@@ -1,9 +1,8 @@
 package servlets;
 
 import ServiceJDBC.JDBCServiceOrder;
-import ServiceJDBC.JDBCServiceUser;
 import entity.Order;
-import myLogger.Log;
+import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,6 +12,10 @@ import java.util.List;
 
 @WebServlet(name = "history", value = "/history")
 public class History extends HttpServlet {
+
+    private static final Logger log = Logger.getLogger(General.class);
+
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -28,8 +31,7 @@ public class History extends HttpServlet {
 
         List<Order> listOrder = (service.getAllOrderForUser(email));
 
-        Log.addLog(History.class.getName() + ": get all order for particular user");
-
+        log.info("get all order for particular user");
         request.setAttribute("historyOrder", listOrder);
 
         getServletContext().getRequestDispatcher("/historyList.jsp").forward(request, response);

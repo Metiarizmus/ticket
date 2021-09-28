@@ -28,8 +28,7 @@ public class OrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session1 = request.getSession();
-        String s = String.valueOf(session1.getAttribute("id_order"));
-        int k = Integer.parseInt(s);
+        int k = (int) session1.getAttribute("id_order");
 
         Ticket orderTicket = new JDBCServiceTicket().getTicketById(k);
         orderTicket.setId(k);
@@ -50,9 +49,6 @@ public class OrderServlet extends HttpServlet {
         } else {
             throw new TicketNotAvailable("sorry you cant order this ticket because it status is UNAVAILABLE");
         }
-
-
-
 
     }
 }
