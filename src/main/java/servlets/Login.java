@@ -39,6 +39,5 @@ public class Login extends HttpServlet {
             throw new NotEmailInSystem("there is no such email in the system or your password not correct");
         }
     }
-
 }
 

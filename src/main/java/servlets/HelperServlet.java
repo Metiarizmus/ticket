@@ -39,19 +39,18 @@ public class HelperServlet extends HttpServlet {
         int id_order = Integer.parseInt(jsonObject.getString("id_order"));
         System.out.println("id order" + id_order);
 
-        int id_order_status = Integer.parseInt(jsonObject.getString("id_order_status"));
-        System.out.println("id order status + " + id_order_status);
+//        int id_order_status = Integer.parseInt(jsonObject.getString("id_order_status"));
+//        System.out.println("id order status + " + id_order_status);
 
-        if (!jsonObject.getString("id_order").trim().isEmpty()) {
-
+        if (id_order!=0) {
             request.setAttribute("id_order", id_order);
-            request.getRequestDispatcher("/general").include(request, response);
+            request.getRequestDispatcher("/general").forward(request, response);
         }
 
-        if (!jsonObject.getString("id_order_status").trim().isEmpty()) {
-            request.setAttribute("id_order_status", id_order_status);
-            request.getRequestDispatcher("/changeStatus").include(request, response);
-        }
+//        if (id_order_status!=0) {
+//            request.setAttribute("id_order_status", id_order_status);
+//            request.getRequestDispatcher("/changeStatus").forward(request, response);
+//        }
 
     }
 }

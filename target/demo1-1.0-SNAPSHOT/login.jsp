@@ -8,11 +8,13 @@
 </head>
 <body>
 <div class="loging">
-    <form method="post" action="enterToSystem">
+    <form name="data_register" method="post" action="enterToSystem" onsubmit="return validateForm()">
         <p><span class="email"> </span><input type="text" name="email" placeholder="Email"/></p>
         <p><span class="password"> </span><input type="text" name="password" placeholder="Password"/></p>
         <p><input class="button-logIn" type="submit" value="LOGIN"/></p>
     </form>
 </div>
+
+<script src="jsForRegistration.js"></script>
 </body>
 </html>

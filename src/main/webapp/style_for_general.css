@@ -10,15 +10,6 @@
 
 }
 
-.names{
-    background-color: #ee7c20;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    position: relative;
-}
 
 .styleOkno {
     width:30%;
@@ -74,7 +65,7 @@
     background: #00008b;
     border: 2px solid red;
     color: #eee;
-    position: absolute;
+    position: fixed;
     top: 10%;
     right: 10%;
     box-shadow: 0px 0px 4px 1px #00008b;
@@ -109,3 +100,25 @@
 .button-order:hover {
     transform: scale(1.1);
 }
+
+.order {
+    cursor: pointer;
+}
+
+.pdf {
+    position:fixed;
+    top:50%;
+    width: 100px;
+    border-radius: 25px;
+    background: red;
+    border: 2px solid red;
+    font-family: sans-serif;
+    height: 35px;
+    box-shadow: 0px 0px 4px 1px red;
+    color: #fff;
+    position: fixed;
+    cursor: pointer;
+    left: 20%;
+    visibility: hidden;
+}
+

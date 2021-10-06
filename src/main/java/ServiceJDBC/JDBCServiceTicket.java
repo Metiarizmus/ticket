@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,5 +69,9 @@ public class JDBCServiceTicket {
         ticket.setPrice(result.getDouble("price"));
         ticket.setStatus(StatusTicket.valueOf(result.getString("status")));
         return ticket;
+    }
+
+    public static void main(String[] args) {
+
     }
 }

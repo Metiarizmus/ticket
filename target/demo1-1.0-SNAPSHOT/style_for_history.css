@@ -11,7 +11,7 @@
     background: red;
     border: 2px solid #00008b;
     color: #eee;
-    position: absolute;
+    position: fixed;
     top: 10%;
     right: 10%;
     box-shadow: 0px 0px 4px 1px #00008b;
@@ -67,14 +67,14 @@ td:nth-child(2) {
 }
 
 
-#btn_comment, #btn_comment_change, #btn_order_send {
+#btn_comment, #btn_order_send {
     width: 220px;
     height: 40px;
     border-radius: 25px;
     background: #00008b;
     border: 2px solid red;
     color: #eee;
-    position: absolute;
+    position: fixed;
     top: 20%;
     right: 10%;
     box-shadow: 0px 0px 4px 1px #00008b;

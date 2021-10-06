@@ -3,6 +3,7 @@ function validateForm() {
     s = s.replace(/^\s+|\s+$/g, '');
 
     let name = document.forms["data_register"]["name"].value;
+
     if(name == s) {
         alert("your name cant be null");
         return false;
@@ -21,5 +22,4 @@ function validateForm() {
         alert("your email not correct");
         return false;
     }
-
 }

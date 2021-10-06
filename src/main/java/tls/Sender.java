@@ -1,5 +1,7 @@
 package tls;
 
+import connectDB.PropertyInf;
+
 import java.util.Properties;
 
 import javax.mail.*;
@@ -8,13 +10,13 @@ import javax.mail.internet.MimeMessage;
 
 public class Sender {
 
-    private String username;
-    private String password;
+    private PropertyInf propertyInf = new PropertyInf();
+
+    private String username = propertyInf.getDataForEmail().getProperty("MY_EMAIL");
+    private String password = propertyInf.getDataForEmail().getProperty("PASSWORD_EMAIL");
     private Properties props;
 
-    public Sender(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public Sender() {
 
         props = new Properties();
         props.put("mail.smtp.auth", "true");

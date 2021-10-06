@@ -29,13 +29,13 @@ public class Change extends HttpServlet {
         log.info("get id witch we get when click on status order in history, id= " + k);
 
         if (k!=0) {
-            if( service.updateStatus(k)) {
+            if(service.updateStatus(k)) {
                 System.out.println("статус для k=" + k);
             }
         }
 
 
-        response.sendRedirect("general");
+       // response.sendRedirect("general");
 
     }
 }

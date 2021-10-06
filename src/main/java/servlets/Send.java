@@ -2,6 +2,7 @@ package servlets;
 
 import ServiceJDBC.JDBCServiceOrder;
 import com.google.gson.Gson;
+import connectDB.PropertyInf;
 import entity.Order;
 import org.apache.log4j.Logger;
 import tls.Sender;
@@ -48,13 +49,13 @@ public class Send extends HttpServlet {
         String jsonOrder = gson.toJson(orderForSend);
 
         System.out.println(jsonOrder);
-        //------------------------------------------------------------------
+        //------------------------------------------------------------------//
 
         String address = request.getParameter("address");
-        String password = request.getParameter("password");
 
-        Sender sender = new Sender(address,password);
-        sender.send("your ticket order",jsonOrder,address,address);
+        String myEmail = new PropertyInf().getDataForEmail().getProperty("MY_EMAIL");
+        Sender sender = new Sender();
+        sender.send("your ticket order",jsonOrder,myEmail,address);
         log.info("sent order to email");
         getServletContext().getRequestDispatcher("/responseForEmail.jsp").forward(request, response);
 

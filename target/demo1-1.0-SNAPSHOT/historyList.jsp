@@ -15,13 +15,13 @@
     <table border="3">
 
         <tr>
-            <td>id</td>
-            <td>status order</td>
-            <td>date order</td>
-            <td>route</td>
-            <td>date ticket</td>
-            <td>price</td>
-            <td>your comment</td>
+            <td style="display:none;">id</td>
+            <td>статус заказа</td>
+            <td>дата заказа</td>
+            <td>маршрут</td>
+            <td>дата белета</td>
+            <td>цена</td>
+            <td>ваш комментарий</td>
         </tr>
 
 
@@ -48,7 +48,7 @@
 
 
 <div id="my_button">
-    <form action="general" method="post" >
+    <form action="general" method="get" >
         <p><input class="btn_back" type="submit" value="back"/></p>
     </form>
 </div>

@@ -1,13 +1,17 @@
-const names = document.querySelectorAll(".names");
+const orders = document.querySelectorAll(".order");
 let id;
 
 const getOkno = document.querySelector('.okno')
 const zatemnenie = document.querySelector('.zatem')
 const html = document.querySelector('html')
 const closeBtn = document.querySelector(".closeBtn")
+const doc = new jsPDF()
+const textArea = document.getElementsByClassName(".example");
+const genPDF = document.querySelector('.pdf');
+let xhr = new XMLHttpRequest();
 
 
-names.forEach(item => {
+orders.forEach(item => {
     item.onclick = function () {
         id = (item.previousSibling.textContent)
 
@@ -15,53 +19,70 @@ names.forEach(item => {
             "id_order": id
         };
 
+        genPDF.style.visibility="visible";
+
+
         const idJson = JSON.stringify(idObj);
 
-        const urlToGeneral = "http://localhost:8080/demo1_war_exploded/helperData";
+        const urlToHelper = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/helperData";
 
-        $.ajax({
-            url: urlToGeneral,
-            method: "post",
-            data: idJson,
-            contentType: "application/json",
-            error: function (message) {
-                console.log(message);
-            },
-            success: function (data) {
-                console.log(data);
+        xhr.open('POST', urlToHelper, true);
+        xhr.responseType = 'json';
 
-                getOkno.innerHTML = `
+        xhr.send(idJson);
+
+        xhr.onreadystatechange = function() {
+
+            if (xhr.readyState != 4) return;
+
+            let responseObj = xhr.response;
+            getOkno.innerHTML = `
 <h3>Do you really want to order this ticket?</h3>
-<p>route: ${data.route} <br>
-price: ${data.price} <br>
-dateTicket: ${data.dateTicket} <br>
-status: ${data.status}</p>
+<p>route: ${responseObj.route} <br>
+price: ${responseObj.price} <br>
+dateTicket: ${responseObj.dateTicket} <br>
+status: ${responseObj.status}</p>
 
 <form action="order" method="post">
         <p><input class="button-order" onclick="alert('your order is accepted')" type="submit" value="yes"/></p>
-        
 </form>
 `
-                document.getElementById('textArea').innerHTML=JSON.stringify(data);
+            textArea.innerText=`
+route: ${responseObj.route}
+price: ${responseObj.price}
+dateTicket: ${responseObj.dateTicket}
+status: ${responseObj.status}
+`
+            doc.text(`route: ${responseObj.route}`, 10, 10)
+            doc.text(`price: ${responseObj.price}`, 10, 20)
+            doc.text(`date: ${responseObj.dateTicket}`, 10, 30)
+            doc.text(`status: ${responseObj.status}`, 10, 40)
+
+            // -------------------------------------------------------------------------------------
+            if (xhr.status != 200) {
+                alert(xhr.status + ': ' + xhr.statusText);
+            } else {
+
             }
-        });
 
-        getOkno.style.display = "block";
-        zatemnenie.classList.add('zatemnenie');
-        getOkno.classList.add('styleOkno');
-        html.style.overflow = "hidden";
-        closeBtn.style.opacity = 1;
-        closeBtn.style.cursor = "pointer";
+            xhr.onprogress = function(event) {
+                alert(`Загружено ${event.loaded} из ${event.total}`);
+            };
+
+            getOkno.style.display = "block";
+            zatemnenie.classList.add('zatemnenie');
+            getOkno.classList.add('styleOkno');
+            html.style.overflow = "hidden";
+            closeBtn.style.opacity = 1;
+            closeBtn.style.cursor = "pointer";
     }
-})
 
+
+}})
 
 closeBtn.addEventListener("click", function () {
-    console.log("click on close")
     closePopup();
 })
-
-
 
 
 function closePopup() {
@@ -70,20 +91,13 @@ function closePopup() {
     html.style.overflow = ""
     closeBtn.style.opacity = 0
     closeBtn.style.cursor = "default"
-    getOkno.innerHTML = ``
+    getOkno.innerHTML = ``;
+    genPDF.style.visibility="hidden";
 }
 
-var doc = new jsPDF();
-var specialElementHandlers = {
-    '#editor': function (element, renderer) {
-        return true;
-    }
-};
+genPDF.onclick = function (){
+    doc.save('a4.pdf')
+}
 
-$('#cmd').click(function () {
-    doc.fromHTML($('#content').html(), 15, 15, {
-        'width': 170,
-        'elementHandlers': specialElementHandlers
-    });
-    doc.save('sample-file.pdf');
-});
+
+

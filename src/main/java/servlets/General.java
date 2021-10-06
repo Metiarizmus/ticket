@@ -1,13 +1,10 @@
 package servlets;
 
 import ServiceJDBC.JDBCServiceTicket;
-import ServiceJDBC.JDBCServiceUser;
 import com.google.gson.Gson;
-import connectDB.DBConnection;
 import entity.Ticket;
 import org.apache.log4j.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -48,6 +45,5 @@ public class General extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
             log.info("create the Ticket of object witch we make from bd and make a response to web");
-
     }
 }

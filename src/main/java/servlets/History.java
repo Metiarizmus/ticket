@@ -34,6 +34,6 @@ public class History extends HttpServlet {
         log.info("get all order for particular user");
         request.setAttribute("historyOrder", listOrder);
 
-        getServletContext().getRequestDispatcher("/historyList.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/historyList.jsp").forward(request,response);
     }
 }

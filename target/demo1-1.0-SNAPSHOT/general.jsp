@@ -4,12 +4,12 @@
 <%@ page session="true" %>
 <%@ page errorPage="errors.jsp" %>
 
-<html>
+<html lang="ru">
 <head>
     <title>User mode</title>
     <link rel="stylesheet" type="text/css" href="style_for_general.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
 
 </head>
 <body>
@@ -19,22 +19,22 @@
     <table border="3">
 
         <tr>
-            <td>id</td>
-            <td>name</td>
-            <td>time</td>
-            <td>price</td>
-            <td>status</td>
+            <td>Заказать</td>
+            <td style="display:none;">id</td>
+            <td>Маршрут</td>
+            <td>Время</td>
+            <td>Цена</td>
+            <td>Статус</td>
         </tr>
 
         <c:forEach var="ticket" items="${tickets}">
-
             <tr>
-                <td class="id"><c:out value="${ticket.id}"/></td><td class="names" title="click for order"><c:out value="${ticket.route}"/></td>
+                <td class="id" style="display:none;"><c:out value="${ticket.id}"/></td><td class="order" title="click for order">заказать</td>
+                <td class="names"><c:out value="${ticket.route}"/></td>
                 <td><c:out value="${ticket.dateTicket}"/></td>
                 <td><c:out value="${ticket.price}"/></td>
-                <td><c:out value="${ticket.status}"/></td>
+                <td style="text-transform: lowercase" class="status_ticket"><c:out value="${ticket.status}"/></td>
             </tr>
-
         </c:forEach>
 
     </table>
@@ -62,14 +62,8 @@
     Close
 </button>
 
-<p>if you wanna get pdf your ticket - click on route then click on close and in textArea will be your json ticket</p>
 
-<div id="content">
-    <p><textarea id="textArea" name="textComment" cols="30" rows="5"> </textarea></p>
-</div>
-<div id="editor"></div>
-<button id="cmd">Generate PDF</button>
-
+<input class="pdf" type="button" value="to PDF">
 
 <script src="jsForGeneral.js"></script>
 </body>

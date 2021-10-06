@@ -5,6 +5,20 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyInf {
+
+    public Properties getDataForEmail() {
+        InputStream fis;
+        Properties properties = new Properties();
+
+        try {
+            fis = PropertyInf.class.getClassLoader().getResourceAsStream("email.properties");
+            properties.load(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
+    }
+
     public Properties getConnectData() {
         InputStream fis;
         Properties properties = new Properties();
@@ -29,4 +43,5 @@ public class PropertyInf {
         }
         return property;
     }
+
 }
