@@ -1,10 +1,18 @@
+let id;
+let id_comment;
+let id_mail;
 const st = document.querySelectorAll(".status");
+const comment = document.querySelectorAll(".comment")
 const getOkno = document.querySelector('.okno')
 const zatemnenie = document.querySelector('.zatem')
 const idForItem = document.querySelectorAll(".item_id")
 const statusBtn = document.querySelectorAll(".status_btn")
 const html = document.querySelector('html')
 const closeBtn = document.querySelector(".closeBtn")
+const tableHistory = document.querySelectorAll(".table_history")
+const mail_btn = document.querySelectorAll(".mail")
+const btn_send_comment = document.querySelector(".send_comment")
+const btn_send_mail = document.querySelector(".send_mail")
 
 let id_array = [];
 
@@ -25,73 +33,69 @@ st.forEach(item => {
             "id_order_status": id
         };
 
-        const idJson = JSON.stringify(idObj);
+        const idJson_status = JSON.stringify(idObj);
 
-        const urlToHelper = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/helperData";
+        const urlToChangeStatus = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/changeStatus";
 
-        xhr.open('POST', urlToHelper,true);
-        xhr.responseType = 'json';
-
-
-        xhr.send(idJson);
-
-
-        xhr.onreadystatechange = function() {
-            if(xhr.readyState != 4) return;
-
-            alert("good");
-        };
-
-        if (xhr.status != 200) {
-            alert(xhr.status + ': ' + xhr.statusText);
-        } else {
-            alert(xhr.responseText);
-        }
-
-        xhr.onprogress = function(event) {
-            alert(`Загружено ${event.loaded} из ${event.total}`);
-        };
+        sendJson(urlToChangeStatus,idJson_status);
 
     }
 })
 
-function commentClick() {
-    alert("asasa")
-    getOkno.innerHTML = `
-<h3>please choose id order and write comment to it</h3>
 
-<form name="form_comment" action="comment" onsubmit="return validateForm()" method="post" >
-<!--        <p><input type="text" name="id_history_order" placeholder="id" class="id_history-order"></p>-->
+comment.forEach((item, index) => {
+    item.onclick = function () {
+        id_comment = tableHistory[index].firstElementChild.innerHTML;
+        console.log(id_comment);
+
+        getOkno.innerHTML = `
+<h3>please write comment</h3>
+
+<form id="form_comment_id" name="form_comment" action="comment" oninput="validateForm()" method="post" >
         <p><textarea id="textArea" name="textComment" cols="30" rows="5" placeholder="add your comment"></textarea></p>
-        <p><input class="send_comment" type="submit" value="send"/></p>        
 </form>
 `
-    closeModal();
+        btn_send_comment.style.display="block";
+
+        openModal();
+
+    }
+})
+
+
+
+
+function send_com() {
+    var Vars = {var1: id_comment};
+    var varsData = $.param(Vars);
+
+    var formData = $('#form_comment_id').serialize();
+
+    var data = varsData + '&' + formData;
+
+    const urlToComment = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/comment";
+
+
+    $.ajax({
+        type: 'POST',
+        url: urlToComment,
+        data: data,
+        success: function(res){ alert ("commend add") }
+    })
+
+    location.reload();
 }
 
 function validateForm() {
-    let id = document.querySelector(".id_history-order").value;
-    let t = 0;
+    let id = id_comment;
 
-
-    id_array.forEach(i => {
-        if(+i === +id) {
-            t=1;
-        }
-    })
-
-
-
-    if (t == 0) {
-        alert("your id not correct");
-        return false;
-    }
 
     idForItem.forEach(item => {
 
        if (id === item.innerHTML) {
            if (item.nextElementSibling.textContent.replace(/\s/g, '') === "CANCELED") {
-               alert("you cant add comment to status with srtatus canceled")
+               alert("you cant add comment to status with status canceled")
+               return false;
            }
 
 
@@ -101,30 +105,99 @@ function validateForm() {
 
 }
 
-function orderSend() {
-    getOkno.innerHTML = `
-<h3>please choose id order for send it to your email</h3>
-<h3>you need to disable the protection of your account!!!</h3>
 
-<form name="form_comment" action="sendOrder" onsubmit="return validateForm()" method="post" >
-        <p><input type="text" name="id_history_order" placeholder="id"></p>
+
+mail_btn.forEach((item, index) => {
+        item.onclick = function (){
+            id_mail = tableHistory[index].firstElementChild.innerHTML;
+            console.log(id_mail)
+            getOkno.innerHTML = `
+<h3>please write your mail</h3>
+
+<form id="form_mail_id" name="form_mail" action="sendOrder"  method="post" >
         <p><input type="text" name="address" placeholder="your gmail address"></p>
-        <p><input class="send_comment" type="submit" value="send"/></p>        
 </form>
 `
-    closeModal();
+            btn_send_mail.style.display="block";
+            openModal();
 
+        }
+    })
+
+function send_mail() {
+    var Vars = {var1: id_mail};
+    var varsData = $.param(Vars);
+
+    var formData = $('#form_mail_id').serialize();
+
+    var data = varsData + '&' + formData;
+
+    const urlToSendMail = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/sendOrder";
+
+
+    $.ajax({
+        type: 'POST',
+        url: urlToSendMail,
+        data: data,
+        success: function(res){
+            alert ("order send") }
+    })
+
+    location.reload();
 }
+
 
 statusBtn.forEach( item => {
     item.textContent == "ACCEPTED" ? item.style.background = "#3498DB" : item.style.background = "#b64545";
 })
 
-function closeModal() {
+function openModal() {
     getOkno.style.display = "block";
     zatemnenie.classList.add('zatemnenie');
     getOkno.classList.add('styleOkno');
     html.style.overflow = "hidden";
     closeBtn.style.opacity = 1;
     closeBtn.style.cursor = "pointer";
+}
+
+function closePopup() {
+    btn_send_comment.style.display="none";
+    btn_send_mail.style.display="none";
+    zatemnenie.classList.remove('zatemnenie')
+    getOkno.classList.remove('styleOkno')
+    html.style.overflow = ""
+    closeBtn.style.opacity = 0
+    closeBtn.style.cursor = "default"
+    getOkno.innerHTML = ``;
+    genPDF.style.visibility="hidden";
+    location.reload();
+}
+
+closeBtn.addEventListener("click", function () {
+    closePopup();
+})
+
+function sendJson(url, json_str) {
+
+    xhr.open('POST', url,true);
+    xhr.responseType = 'json';
+
+
+    xhr.send(json_str);
+
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState != 4) return;
+
+        alert("good");
+    };
+
+    if (xhr.status != 200) {
+        alert(xhr.status + ': ' + xhr.statusText);
+    } else {
+        alert(xhr.responseText);
+    }
+
+    xhr.onprogress = function(event) {
+        alert(`Загружено ${event.loaded} из ${event.total}`);
+    };
 }

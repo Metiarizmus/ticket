@@ -28,8 +28,8 @@ public class Send extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JDBCServiceOrder service = new JDBCServiceOrder();
 
-        String idOrder = request.getParameter("id_history_order");
-        int k  = Integer.parseInt(idOrder);
+        int k = Integer.parseInt(request.getParameter("var1"));
+
 
         HttpSession session2 = request.getSession();
         String email = (String) session2.getAttribute("id_user");
@@ -57,7 +57,7 @@ public class Send extends HttpServlet {
         Sender sender = new Sender();
         sender.send("your ticket order",jsonOrder,myEmail,address);
         log.info("sent order to email");
-        getServletContext().getRequestDispatcher("/responseForEmail.jsp").forward(request, response);
+        response.sendRedirect("responseForEmail.jsp");
 
     }
 }

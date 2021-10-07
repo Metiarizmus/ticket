@@ -20,8 +20,11 @@ public class CommentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idOrderForComment = request.getParameter("id_history_order");
+        String idOrderForComment = request.getParameter("var1");
+        System.out.println("id comment " + idOrderForComment);
+
         String textComment = request.getParameter("textComment");
+        System.out.println("text " + textComment);
 
         log.info("get text of comment from web to object");
 
@@ -34,6 +37,6 @@ public class CommentServlet extends HttpServlet {
             log.error("comment doesnt add in db");
         }
 
-        response.sendRedirect("general");
+        //response.sendRedirect("general");
     }
 }

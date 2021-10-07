@@ -24,7 +24,7 @@ orders.forEach(item => {
 
         const idJson = JSON.stringify(idObj);
 
-        const urlToHelper = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/helperData";
+        const urlToHelper = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/general";
 
         xhr.open('POST', urlToHelper, true);
         xhr.responseType = 'json';
@@ -93,6 +93,7 @@ function closePopup() {
     closeBtn.style.cursor = "default"
     getOkno.innerHTML = ``;
     genPDF.style.visibility="hidden";
+    location.reload();
 }
 
 genPDF.onclick = function (){

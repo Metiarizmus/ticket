@@ -1,6 +1,6 @@
 .history_mode {
-    width: 700px; /* Ширина таблицы */
-    margin: auto; /* Выравниваем таблицу по центру окна  */
+    width: 750px;
+    margin: auto;
     font-family: 'Open Sans', Arial, sans-serif;
 }
 
@@ -67,7 +67,7 @@ td:nth-child(2) {
 }
 
 
-#btn_comment, #btn_order_send {
+#btn_order_send {
     width: 220px;
     height: 40px;
     border-radius: 25px;
@@ -84,11 +84,6 @@ td:nth-child(2) {
     cursor: pointer;
 }
 
-#btn_comment:hover {
-    background-color: #c41e3a;
-    transform: scale(1.1);
-}
-
 #btn_order_send {
     top: 30%;
 }
@@ -99,7 +94,7 @@ td:nth-child(2) {
 }
 
 
-.send_comment {
+.send_comment, .send_mail{
     width: 70px;
     border-radius: 50px;
     background: red;
@@ -112,6 +107,10 @@ td:nth-child(2) {
     transition: 0.4s;
     opacity:0.8;
     text-transform: uppercase;
+    position: fixed;
+    top: 57%;
+    left: 48%;
+    display: none;
 }
 
 .send_comment:hover {

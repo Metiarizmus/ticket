@@ -22,13 +22,14 @@
             <td>дата белета</td>
             <td>цена</td>
             <td>ваш комментарий</td>
+            <td>на почту</td>
         </tr>
 
 
         <c:forEach var="history" items="${historyOrder}">
 
-            <tr>
-                <td class="item_id"><c:out value="${history.id}"/></td><td class="status" title="click for change status">
+            <tr class="table_history">
+                <td class="item_id" style="display:none;"><c:out value="${history.id}"/></td><td class="status" title="click for change status">
                 <form action="changeStatus" method="post">
                     <button class="status_btn"><c:out value="${history.statusOrder}"/></button>
                 </form>
@@ -37,7 +38,8 @@
                 <td><c:out value="${history.ticketId.route}"/></td>
                 <td><c:out value="${history.ticketId.dateTicket}"/></td>
                 <td><c:out value="${history.ticketId.price}"/></td>
-                <td><c:out value="${history.getComment().getCommentary()}"/></td>
+                <td class="comment" style="cursor: pointer" title="click for add comment"><c:out value="${history.getComment().getCommentary()}"/></td>
+                <td class="mail">отправить</td>
             </tr>
 
         </c:forEach>
@@ -54,15 +56,18 @@
 </div>
 
 
-<button id="btn_comment" onclick="commentClick();"> add comment</button>
-
-<button id="btn_order_send" onclick="orderSend();"> send order</button>
-
 <div class="zatem">
     <div class="okno">
 
     </div>
 </div>
+
+
+
+<button class="send_comment" onclick="send_com();"> send </button>
+<button class="send_mail" onclick="send_mail();"> send </button>
+
+
 
 <button class="closeBtn">
     Close
