@@ -31,12 +31,16 @@ orders.forEach(item => {
 
         xhr.send(idJson);
 
+        let f = 0;
+
         xhr.onreadystatechange = function() {
 
             if (xhr.readyState != 4) return;
 
             let responseObj = xhr.response;
-            getOkno.innerHTML = `
+
+            if (`${responseObj.status}` != "UNAVAILABLE") {
+                getOkno.innerHTML = `
 <h3>Do you really want to order this ticket?</h3>
 <p>route: ${responseObj.route} <br>
 price: ${responseObj.price} <br>
@@ -44,9 +48,17 @@ dateTicket: ${responseObj.dateTicket} <br>
 status: ${responseObj.status}</p>
 
 <form action="order" method="post">
-        <p><input class="button-order" onclick="alert('your order is accepted')" type="submit" value="yes"/></p>
+        <p><input class="button-order" onclick="alert('your order is accepted')" type="submit" value="order"/></p>
 </form>
 `
+            }else {
+                alert("sorry you cant order with status a UNAVAILABLE")
+                f=1;
+            }
+
+
+
+
             textArea.innerText=`
 route: ${responseObj.route}
 price: ${responseObj.price}
@@ -69,12 +81,15 @@ status: ${responseObj.status}
                 alert(`Загружено ${event.loaded} из ${event.total}`);
             };
 
-            getOkno.style.display = "block";
-            zatemnenie.classList.add('zatemnenie');
-            getOkno.classList.add('styleOkno');
-            html.style.overflow = "hidden";
-            closeBtn.style.opacity = 1;
-            closeBtn.style.cursor = "pointer";
+            if(f===0){
+                getOkno.style.display = "block";
+                zatemnenie.classList.add('zatemnenie');
+                getOkno.classList.add('styleOkno');
+                html.style.overflow = "hidden";
+                closeBtn.style.opacity = 1;
+                closeBtn.style.cursor = "pointer";
+            }
+
     }
 
 

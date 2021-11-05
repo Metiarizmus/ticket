@@ -17,7 +17,6 @@ public class Sender {
     private Properties props;
 
     public Sender() {
-
         props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -43,7 +42,6 @@ public class Sender {
             message.setSubject(subject);
 
             message.setText(text);
-
 
             Transport.send(message);
         } catch (MessagingException e) {

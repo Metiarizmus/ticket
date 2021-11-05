@@ -29,7 +29,7 @@ public class History extends HttpServlet {
         HttpSession session2 = request.getSession();
         String email = (String) session2.getAttribute("id_user");
 
-        List<Order> listOrder = (service.getAllOrderForUser(email));
+        List<Order> listOrder = service.getAllOrderForUser(email);
 
         log.info("get all order for particular user");
         request.setAttribute("historyOrder", listOrder);

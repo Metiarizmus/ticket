@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class JDBCServiceComment {
 
-    private final Connection daoFactory = DBConnection.getInstance().getConnection();
+    private final Connection daoFactory =DBConnection.getConnection();
 
     public boolean addCommentInDB(String textCommentary, int idOrderForComment) {
         try (Connection connection = daoFactory) {

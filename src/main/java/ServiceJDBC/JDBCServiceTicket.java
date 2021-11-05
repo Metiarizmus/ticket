@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCServiceTicket {
-    private final Connection daoFactory = DBConnection.getInstance().getConnection();
+    private final Connection daoFactory = DBConnection.getConnection();
 
     public Ticket getTicketById(int idOrder) {
         Ticket ticket = null;
 
-        try (Connection connection = daoFactory) {
+        try (Connection connection = DBConnection.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("GET_TICKET_BY_ID"))) {
                 statement.setInt(1, idOrder);
                 try (ResultSet resultSet = statement.executeQuery()) {
@@ -43,7 +43,7 @@ public class JDBCServiceTicket {
     public List<Ticket> getAllTicket() {
         List<Ticket> list = new ArrayList<>();
 
-        try (Connection connection = DBConnection.getInstance().getConnection()) {
+        try (Connection connection = DBConnection.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("GET_ALL_TICKET"))) {
                 try (ResultSet result = statement.executeQuery()) {
                     while (result.next()) {

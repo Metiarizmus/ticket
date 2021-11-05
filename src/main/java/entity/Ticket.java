@@ -2,10 +2,10 @@ package entity;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 
 public class Ticket {
 
@@ -20,8 +20,8 @@ public class Ticket {
     }
 
     public void setDateTicket(Timestamp dateTicket) {
-       /* SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        simpleDateFormat.format(dateTicket);*/
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.forLanguageTag("ru"));
+        simpleDateFormat.format(dateTicket);
         this.dateTicket = dateTicket;
     }
 

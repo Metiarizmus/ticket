@@ -65,6 +65,8 @@ comment.forEach((item, index) => {
 
 
 
+
+
 function send_com() {
     var Vars = {var1: id_comment};
     var varsData = $.param(Vars);

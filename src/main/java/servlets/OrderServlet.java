@@ -39,7 +39,6 @@ public class OrderServlet extends HttpServlet {
             HttpSession session2 = request.getSession();
             String email = (String) session2.getAttribute("id_user");
 
-
             if(new JDBCServiceOrder().addOrderInDB(email,k)){
                 log.info("create order and put it in db");
                 System.out.println("order servlet order is add");

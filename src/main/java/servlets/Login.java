@@ -29,6 +29,7 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         System.out.println("email " + email + " password: " + password);
 
+
         if(service.getByEmail(email,password,propertyInf.getSqlQuery().getProperty("GET_BY_EMAIL_AND_PASSWORD"))) {
 
             HttpSession session = request.getSession(true);

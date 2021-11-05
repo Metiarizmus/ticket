@@ -42,9 +42,6 @@ public class General extends HttpServlet {
             sb.append(line);
         }
 
-
-
-
         try{
             JSONObject jsonObject = new JSONObject(sb.toString());
 

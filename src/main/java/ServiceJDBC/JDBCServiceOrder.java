@@ -8,16 +8,21 @@ import entity.StatusOrder;
 import entity.Ticket;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class JDBCServiceOrder {
-    private final Connection daoFactory = DBConnection.getInstance().getConnection();
+    private final Connection daoFactory = DBConnection.getConnection();
 
     public boolean addOrderInDB(String email, int ticketId) {
         try (Connection connection = daoFactory) {
             try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("INSERT_ORDER"))) {
-                String[] s = new String[]{String.valueOf(StatusOrder.ACCEPTED), String.valueOf(new Timestamp(System.currentTimeMillis())),
+                Locale locale = new Locale("ru");
+                String[] s = new String[]{String.valueOf(StatusOrder.ACCEPTED), new SimpleDateFormat("yyyy-MM-dd HH:mm", locale).format(Calendar.getInstance().getTime()) ,
                         String.valueOf(ticketId),email
                 };
 
@@ -38,7 +43,7 @@ public class JDBCServiceOrder {
     public List<Order> getAllOrderForUser(String email) {
         List<Order> list = new ArrayList<>();
 
-        try (Connection connection = DBConnection.getInstance().getConnection()) {
+        try (Connection connection = DBConnection.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("FULL_ORDER_WITH_COMMENT"))) {
                 statement.setString(1,email);
                 try (ResultSet result = statement.executeQuery()) {
