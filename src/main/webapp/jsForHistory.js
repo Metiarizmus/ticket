@@ -63,10 +63,6 @@ comment.forEach((item, index) => {
 })
 
 
-
-
-
-
 function send_com() {
     var Vars = {var1: id_comment};
     var varsData = $.param(Vars);
@@ -82,10 +78,14 @@ function send_com() {
         type: 'POST',
         url: urlToComment,
         data: data,
-        success: function(res){ alert ("commend add") }
-    })
+        success: function(res){
+            alert ("commend add")
 
-    location.reload();
+        }
+    }).done(function () {
+        window.location.reload(true);
+    });
+
 }
 
 function validateForm() {
@@ -106,8 +106,6 @@ function validateForm() {
     })
 
 }
-
-
 
 mail_btn.forEach((item, index) => {
         item.onclick = function (){
@@ -194,12 +192,12 @@ function sendJson(url, json_str) {
     };
 
     if (xhr.status != 200) {
-        alert(xhr.status + ': ' + xhr.statusText);
+        window.location.reload(true);
     } else {
         alert(xhr.responseText);
     }
 
-    xhr.onprogress = function(event) {
-        alert(`Загружено ${event.loaded} из ${event.total}`);
-    };
+
+
+
 }

@@ -13,7 +13,7 @@ public class Order {
 
     private StatusOrder statusOrder;
     @Getter @Setter private Ticket ticketId;
-    @Getter @Setter private Timestamp dateOrder;
+    @Getter @Setter private String dateOrder;
     @Getter @Setter private User userId;
     @Getter @Setter private Comment comment;
 

@@ -69,7 +69,7 @@ public class JDBCServiceOrder {
 
         order.setId(resultSet.getInt("id"));
         order.setStatusOrder(resultSet.getString("status"));
-        order.setDateOrder(resultSet.getTimestamp("date_order"));
+        order.setDateOrder(resultSet.getString("date_order"));
         ticket.setRoute(resultSet.getString("route"));
         ticket.setDateTicket(resultSet.getTimestamp("time"));
         ticket.setPrice(resultSet.getDouble("price"));

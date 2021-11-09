@@ -37,6 +37,6 @@ public class CommentServlet extends HttpServlet {
             log.error("comment doesnt add in db");
         }
 
-        //response.sendRedirect("general");
+
     }
 }
