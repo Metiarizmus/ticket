@@ -1,7 +1,6 @@
 package servlets;
 
-import ServiceJDBC.JDBCServiceTicket;
-import ServiceJDBC.JDBCServiceUser;
+import service.JDBCServiceTicket;
 import entity.Ticket;
 
 import javax.servlet.*;

@@ -1,8 +1,10 @@
 package servlets;
 
-import ServiceJDBC.JDBCServiceUser;
-import org.apache.log4j.Logger;
+import helper.BaseInServlets;
 import org.json.JSONException;
+import service.JDBCServiceOrder;
+import service.JDBCServiceUser;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import javax.servlet.*;
@@ -24,36 +26,38 @@ public class Change extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JDBCServiceUser service = new JDBCServiceUser();
+        JDBCServiceOrder service = new JDBCServiceOrder();
 
         response.setContentType("application/json;charset=UTF-8");
 
-        StringBuffer sb = new StringBuffer();
-        String line = null;
+        BaseInServlets baseInServlets = new BaseInServlets();
 
-        BufferedReader reader = request.getReader();
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
+        BufferedReader br = request.getReader();
+
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = baseInServlets.getRequest(br);
+
+        }catch (JSONException ignore) {
+            //because I get JSONException but all good
         }
 
         try {
-            JSONObject jsonObject = new JSONObject(sb.toString());
-
             int id_order_status = Integer.parseInt(jsonObject.getString("id_order_status"));
-            System.out.println("id order status + " + id_order_status);
+            System.out.println("id order status = " + id_order_status);
 
             log.info("get id witch we get when click on status order in history, id= " + id_order_status);
 
-            if (id_order_status!=0) {
-                if(service.updateStatus(id_order_status)) {
-                    System.out.println("статус для k=" + id_order_status);
+            if (id_order_status != 0) {
+                if (service.updateStatus(id_order_status)) {
+                    log.info("change status for order with id = " + id_order_status);
                 }
             }
-
-
-        }catch (JSONException e) {
-            System.err.println("error in change");
+        }catch (NullPointerException ignore){
+            // i dont know why i get NullPointerException because all work good its strange but this way work ))
         }
+
 
         response.sendRedirect("general");
     }

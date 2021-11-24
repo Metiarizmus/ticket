@@ -1,11 +1,11 @@
 package servlets;
 
-import ServiceJDBC.JDBCServiceUser;
-import connectDB.PropertyInf;
+import service.JDBCServiceUser;
+import connect.PropertyInf;
 import entity.User;
-import helperForData.EmailValidator;
-import myException.EmailYetExist;
-import myException.NotCorrectEmail;
+import helper.EmailValidator;
+import exceptionMy.EmailYetExist;
+import exceptionMy.NotCorrectEmail;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.*;
@@ -20,7 +20,6 @@ public class Register extends HttpServlet {
 
 
     private final JDBCServiceUser service = new JDBCServiceUser();
-    private final PropertyInf propertyInf = new PropertyInf();
     private final EmailValidator validator = new EmailValidator();
 
 
@@ -38,7 +37,7 @@ public class Register extends HttpServlet {
 
         if (valid) {
             User user = new User(email, login, password);
-            if (service.addUserInDB(user, propertyInf.getSqlQuery().getProperty("INSERT"))) {
+            if (service.addUserInDB(user)) {
 
                 HttpSession session = request.getSession(true);
                 session.setAttribute("id_user", email);

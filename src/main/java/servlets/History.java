@@ -1,6 +1,6 @@
 package servlets;
 
-import ServiceJDBC.JDBCServiceOrder;
+import service.JDBCServiceOrder;
 import entity.Order;
 import org.apache.log4j.Logger;
 

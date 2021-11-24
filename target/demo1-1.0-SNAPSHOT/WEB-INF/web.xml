@@ -5,11 +5,11 @@
          version="4.0">
 
     <error-page>
-        <exception-type>myException.NotCorrectEmail</exception-type>
+        <exception-type>exceptionMy.NotCorrectEmail</exception-type>
         <location>/errors.jsp</location>
     </error-page>
     <error-page>
-        <exception-type>myException.EmailYetExist</exception-type>
+        <exception-type>exceptionMy.EmailYetExist</exception-type>
         <location>/errors.jsp</location>
     </error-page>
 </web-app>

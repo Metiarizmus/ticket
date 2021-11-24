@@ -1,11 +1,11 @@
 package servlets;
 
 
-import ServiceJDBC.JDBCServiceTicket;
+import service.JDBCServiceTicket;
 
-import ServiceJDBC.JDBCServiceOrder;
+import service.JDBCServiceOrder;
 import entity.*;
-import myException.TicketNotAvailable;
+import exceptionMy.TicketNotAvailable;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;

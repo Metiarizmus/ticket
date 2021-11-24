@@ -1,10 +1,10 @@
 package servlets;
 
-import ServiceJDBC.JDBCServiceTicket;
+import helper.BaseInServlets;
+import service.JDBCServiceTicket;
 import com.google.gson.Gson;
 import entity.Ticket;
 import org.apache.log4j.Logger;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -34,44 +34,32 @@ public class General extends HttpServlet {
 
         response.setContentType("application/json;charset=UTF-8");
 
-        StringBuffer sb = new StringBuffer();
-        String line = null;
+        BaseInServlets baseInServlets = new BaseInServlets();
 
-        BufferedReader reader = request.getReader();
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
+        JSONObject jsonObject;
 
-        try{
-            JSONObject jsonObject = new JSONObject(sb.toString());
+        BufferedReader br = request.getReader();
 
-            int id_order = Integer.parseInt(jsonObject.getString("id_order"));
-            System.out.println("id order" + id_order);
-
-            log.info("get id witch we get when click on ticket route, id= " + id_order);
-
-            HttpSession session = request.getSession(true);
-            session.setAttribute("id_order", id_order);
-
-            log.info("create session with id");
-            Ticket orderTicket = new JDBCServiceTicket().getTicketById(id_order);
-
-            String json = new Gson().toJson(orderTicket);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(json);
-            log.info("create the Ticket of object witch we make from bd and make a response to web");
-
-        }catch (JSONException e) {
-            System.err.println("err in general json");
-        }
+        jsonObject = baseInServlets.getRequest(br);
 
 
+        int id_order = Integer.parseInt(jsonObject.getString("id_order"));
+        System.out.println("id order in general = " + id_order);
+
+        log.info("get id witch we get when click on ticket route, id= " + id_order);
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("id_order", id_order);
+
+        log.info("create session with id");
+        Ticket orderTicket = new JDBCServiceTicket().getTicketById(id_order);
 
 
-
-
-
+        String json = new Gson().toJson(orderTicket);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
+        log.info("create the Ticket of object witch we make from bd and make a response to web");
 
     }
 }

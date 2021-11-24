@@ -1,6 +1,8 @@
 package servlets;
 
-import ServiceJDBC.JDBCServiceComment;
+import entity.Comment;
+import entity.Order;
+import service.JDBCServiceComment;
 
 import org.apache.log4j.Logger;
 
@@ -20,7 +22,8 @@ public class CommentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idOrderForComment = request.getParameter("var1");
+
+        String idOrderForComment = request.getParameter("id_comment");
         System.out.println("id comment " + idOrderForComment);
 
         String textComment = request.getParameter("textComment");
@@ -30,7 +33,13 @@ public class CommentServlet extends HttpServlet {
 
         JDBCServiceComment service = new JDBCServiceComment();
 
-        if (service.addCommentInDB(textComment, Integer.parseInt(idOrderForComment))) {
+        Comment comment = new Comment();
+        comment.setCommentary(textComment);
+        Order order = new Order();
+        order.setId(Integer.parseInt(idOrderForComment));
+        comment.setOrder(order);
+
+        if (service.addCommentInDB(comment)) {
             log.info("add comment in db");
             System.out.println("comment add in db");
         }else {

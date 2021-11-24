@@ -20,7 +20,7 @@ let xhr = new XMLHttpRequest();
 
 idForItem.forEach(item => {
 
- id_array.push(item.innerHTML);
+    id_array.push(item.innerHTML);
 
 })
 
@@ -35,9 +35,9 @@ st.forEach(item => {
 
         const idJson_status = JSON.stringify(idObj);
 
-        const urlToChangeStatus = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/changeStatus";
+        const urlToChangeStatus = window.location.protocol + '//' + window.location.host + "/demo1_war_exploded/changeStatus";
 
-        sendJson(urlToChangeStatus,idJson_status);
+        sendJson(urlToChangeStatus, idJson_status);
 
     }
 })
@@ -55,7 +55,7 @@ comment.forEach((item, index) => {
         <p><textarea id="textArea" name="textComment" cols="30" rows="5" placeholder="add your comment"></textarea></p>
 </form>
 `
-        btn_send_comment.style.display="block";
+        btn_send_comment.style.display = "block";
 
         openModal();
 
@@ -64,22 +64,23 @@ comment.forEach((item, index) => {
 
 
 function send_com() {
-    var Vars = {var1: id_comment};
-    var varsData = $.param(Vars);
 
-    var formData = $('#form_comment_id').serialize();
+    let Vars = {id_comment: id_comment};
+    let varsData = $.param(Vars);
 
-    var data = varsData + '&' + formData;
+    let formData = $('#form_comment_id').serialize();
 
-    const urlToComment = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/comment";
+    let data = varsData + '&' + formData;
+
+    const urlToComment = window.location.protocol + '//' + window.location.host + "/demo1_war_exploded/comment";
 
 
     $.ajax({
         type: 'POST',
         url: urlToComment,
         data: data,
-        success: function(res){
-            alert ("commend add")
+        success: function (res) {
+            alert("commend add")
 
         }
     }).done(function () {
@@ -94,60 +95,61 @@ function validateForm() {
 
     idForItem.forEach(item => {
 
-       if (id === item.innerHTML) {
-           if (item.nextElementSibling.textContent.replace(/\s/g, '') === "CANCELED") {
-               alert("you cant add comment to status with status canceled")
-               return false;
-           }
+        if (id === item.innerHTML) {
+            if (item.nextElementSibling.textContent.replace(/\s/g, '') === "CANCELED") {
+                alert("you cant add comment to status with status canceled")
+                return false;
+            }
 
 
-       }
+        }
 
     })
 
 }
 
 mail_btn.forEach((item, index) => {
-        item.onclick = function (){
-            id_mail = tableHistory[index].firstElementChild.innerHTML;
-            console.log(id_mail)
-            getOkno.innerHTML = `
+    item.onclick = function () {
+        id_mail = tableHistory[index].firstElementChild.innerHTML;
+        console.log(id_mail)
+        getOkno.innerHTML = `
 <h3>please write your mail</h3>
 
 <form id="form_mail_id" name="form_mail" action="sendOrder"  method="post" >
         <p><input type="text" name="address" placeholder="your gmail address"></p>
 </form>
 `
-            btn_send_mail.style.display="block";
-            openModal();
+        btn_send_mail.style.display = "block";
+        openModal();
 
-        }
-    })
+    }
+})
 
 function send_mail() {
-    var Vars = {var1: id_mail};
-    var varsData = $.param(Vars);
+    let Vars = {id_mail: id_mail};
+    let varsData = $.param(Vars);
 
-    var formData = $('#form_mail_id').serialize();
+    let formData = $('#form_mail_id').serialize();
 
-    var data = varsData + '&' + formData;
+    let data = varsData + '&' + formData;
 
-    const urlToSendMail = window.location.protocol + '//' + window.location.host+"/demo1_war_exploded/sendOrder";
+    const urlToSendMail = window.location.protocol + '//' + window.location.host + "/demo1_war_exploded/sendOrder";
 
 
     $.ajax({
         type: 'POST',
         url: urlToSendMail,
         data: data,
-        success: function(res){
-            alert ("order send") }
+        success: function (res) {
+            alert("order send")
+        }
     })
 
     location.reload();
 }
 
 
-statusBtn.forEach( item => {
+statusBtn.forEach(item => {
     item.textContent == "ACCEPTED" ? item.style.background = "#3498DB" : item.style.background = "#b64545";
 })
 
@@ -161,15 +163,15 @@ function openModal() {
 }
 
 function closePopup() {
-    btn_send_comment.style.display="none";
-    btn_send_mail.style.display="none";
+    btn_send_comment.style.display = "none";
+    btn_send_mail.style.display = "none";
     zatemnenie.classList.remove('zatemnenie')
     getOkno.classList.remove('styleOkno')
     html.style.overflow = ""
     closeBtn.style.opacity = 0
     closeBtn.style.cursor = "default"
     getOkno.innerHTML = ``;
-    genPDF.style.visibility="hidden";
+    genPDF.style.visibility = "hidden";
     location.reload();
 }
 
@@ -179,14 +181,14 @@ closeBtn.addEventListener("click", function () {
 
 function sendJson(url, json_str) {
 
-    xhr.open('POST', url,true);
+    xhr.open('POST', url, true);
     xhr.responseType = 'json';
 
 
     xhr.send(json_str);
 
-    xhr.onreadystatechange = function() {
-        if(xhr.readyState != 4) return;
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) return;
 
         alert("good");
     };
@@ -196,8 +198,6 @@ function sendJson(url, json_str) {
     } else {
         alert(xhr.responseText);
     }
-
-
 
 
 }

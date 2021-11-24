@@ -1,6 +1,6 @@
 package tls;
 
-import connectDB.PropertyInf;
+import connect.PropertyInf;
 
 import java.util.Properties;
 

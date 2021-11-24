@@ -1,8 +1,8 @@
 package servlets;
 
-import ServiceJDBC.JDBCServiceOrder;
+import service.JDBCServiceOrder;
 import com.google.gson.Gson;
-import connectDB.PropertyInf;
+import connect.PropertyInf;
 import entity.Order;
 import org.apache.log4j.Logger;
 import tls.Sender;
@@ -28,7 +28,7 @@ public class Send extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JDBCServiceOrder service = new JDBCServiceOrder();
 
-        int k = Integer.parseInt(request.getParameter("var1"));
+        int k = Integer.parseInt(request.getParameter("id_mail"));
 
 
         HttpSession session2 = request.getSession();
@@ -60,4 +60,5 @@ public class Send extends HttpServlet {
         response.sendRedirect("responseForEmail.jsp");
 
     }
+
 }

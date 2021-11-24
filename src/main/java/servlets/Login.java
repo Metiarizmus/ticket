@@ -1,8 +1,8 @@
 package servlets;
 
-import ServiceJDBC.JDBCServiceUser;
-import connectDB.PropertyInf;
-import myException.NotEmailInSystem;
+import service.JDBCServiceUser;
+import connect.PropertyInf;
+import exceptionMy.NotEmailInSystem;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -13,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet(name = "LogInSystem", value = "/enterToSystem")
 public class Login extends HttpServlet {
+
     private final PropertyInf propertyInf = new PropertyInf();
     private JDBCServiceUser service = new JDBCServiceUser();
     private static final Logger log = Logger.getLogger(Login.class);
