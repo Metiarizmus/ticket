@@ -2,7 +2,8 @@ package service;
 
 import connect.DBConnection;
 import connect.PropertyInf;
-import entity.StatusTicket;
+import enums.StateProperties;
+import enums.StatusTicket;
 import entity.Ticket;
 
 import java.sql.Connection;
@@ -14,7 +15,7 @@ import java.util.List;
 public class JDBCServiceTicket {
 
     private PropertyInf propertyInf = new PropertyInf();
-    private final String getAllTicket = propertyInf.getSqlQuery().getProperty("GET_ALL_TICKET");
+    private final String getAllTicket = propertyInf.getProperties(StateProperties.SQL).getProperty("GET_ALL_TICKET");
 
     private JDBCServiceGeneral<Ticket> serviceGeneral = new JDBCServiceGeneral<>();
 
@@ -22,7 +23,7 @@ public class JDBCServiceTicket {
         Ticket ticket = null;
 
         try (Connection connection = DBConnection.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("GET_TICKET_BY_ID"))) {
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getProperties(StateProperties.SQL).getProperty("GET_TICKET_BY_ID"))) {
                 statement.setInt(1, idOrder);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     ticket = new Ticket();

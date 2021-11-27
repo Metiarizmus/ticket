@@ -1,5 +1,7 @@
 package connect;
 
+import enums.StateProperties;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -11,9 +13,9 @@ public class DBConnection {
     private static final String PASSWORD;
 
     static {
-        URL = inf.getConnectData().getProperty("URL");
-        LOGIN = inf.getConnectData().getProperty("LOGIN");
-        PASSWORD = inf.getConnectData().getProperty("PASSWORD");
+        URL = inf.getProperties(StateProperties.CONNECT).getProperty("URL");
+        LOGIN = inf.getProperties(StateProperties.CONNECT).getProperty("LOGIN");
+        PASSWORD = inf.getProperties(StateProperties.CONNECT).getProperty("PASSWORD");
     }
 
     public static Connection getConnection() {

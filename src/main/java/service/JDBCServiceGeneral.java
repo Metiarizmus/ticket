@@ -1,14 +1,11 @@
 package service;
 
 import connect.DBConnection;
-import connect.PropertyInf;
 import entity.Comment;
 import entity.Order;
-import entity.StatusTicket;
+import enums.StatusTicket;
 import entity.Ticket;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

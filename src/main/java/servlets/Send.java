@@ -1,5 +1,6 @@
 package servlets;
 
+import enums.StateProperties;
 import service.JDBCServiceOrder;
 import com.google.gson.Gson;
 import connect.PropertyInf;
@@ -53,7 +54,7 @@ public class Send extends HttpServlet {
 
         String address = request.getParameter("address");
 
-        String myEmail = new PropertyInf().getDataForEmail().getProperty("MY_EMAIL");
+        String myEmail = new PropertyInf().getProperties(StateProperties.EMAIL).getProperty("MY_EMAIL");
         Sender sender = new Sender();
         sender.send("your ticket order",jsonOrder,myEmail,address);
         log.info("sent order to email");

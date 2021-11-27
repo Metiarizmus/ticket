@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class BaseInServlets<E> {
+public class BaseInServlets {
 
     public JSONObject getRequest(BufferedReader s){
 
@@ -24,12 +24,6 @@ public class BaseInServlets<E> {
         }catch (IOException e){
             System.err.println("error json ");
         }
-
-        return null;
-    }
-
-    public String jsonResponse(E e) {
-
 
         return null;
     }

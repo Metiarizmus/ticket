@@ -1,11 +1,10 @@
 package servlets;
 
 import service.JDBCServiceUser;
-import connect.PropertyInf;
 import entity.User;
 import helper.EmailValidator;
-import exceptionMy.EmailYetExist;
-import exceptionMy.NotCorrectEmail;
+import exceptions.EmailYetExist;
+import exceptions.NotCorrectEmail;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.*;

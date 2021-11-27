@@ -1,8 +1,9 @@
 package servlets;
 
+import enums.StateProperties;
 import service.JDBCServiceUser;
 import connect.PropertyInf;
-import exceptionMy.NotEmailInSystem;
+import exceptions.NotEmailInSystem;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -31,7 +32,7 @@ public class Login extends HttpServlet {
         System.out.println("email " + email + " password: " + password);
 
 
-        if(service.getByEmail(email,password,propertyInf.getSqlQuery().getProperty("GET_BY_EMAIL_AND_PASSWORD"))) {
+        if(service.getByEmail(email,password,propertyInf.getProperties(StateProperties.SQL).getProperty("GET_BY_EMAIL_AND_PASSWORD"))) {
 
             HttpSession session = request.getSession(true);
             session.setAttribute("id_user", email);

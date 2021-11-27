@@ -2,10 +2,9 @@ package service;
 
 import connect.DBConnection;
 import connect.PropertyInf;
-import entity.Comment;
 import entity.Order;
-import entity.StatusOrder;
-import entity.Ticket;
+import enums.StateProperties;
+import enums.StatusOrder;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -20,8 +19,8 @@ public class JDBCServiceOrder {
 
     private PropertyInf propertyInf = new PropertyInf();
 
-    private final String getAllOrdersUser = propertyInf.getSqlQuery().getProperty("FULL_ORDER_WITH_COMMENT");
-    private final String addOrderInDB = propertyInf.getSqlQuery().getProperty("INSERT_ORDER");
+    private final String getAllOrdersUser = propertyInf.getProperties(StateProperties.SQL).getProperty("FULL_ORDER_WITH_COMMENT");
+    private final String addOrderInDB = propertyInf.getProperties(StateProperties.SQL).getProperty("INSERT_ORDER");
 
     public boolean addOrderInDB(String email, int ticketId) {
         Locale locale = new Locale("ru");
@@ -45,7 +44,7 @@ public class JDBCServiceOrder {
 
         int k = 0;
         try (Connection connection = DBConnection.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getSqlQuery().getProperty("UPDATE_STATUS_ORDER"))) {
+            try (PreparedStatement statement = connection.prepareStatement(new PropertyInf().getProperties(StateProperties.SQL).getProperty("UPDATE_STATUS_ORDER"))) {
                 statement.setInt(1, id);
                 k = statement.executeUpdate();
 

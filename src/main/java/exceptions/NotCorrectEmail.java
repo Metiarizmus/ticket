@@ -1,4 +1,4 @@
-package exceptionMy;
+package exceptions;
 
 
 public class NotCorrectEmail extends IllegalArgumentException {

@@ -3,6 +3,7 @@ package service;
 import connect.DBConnection;
 import connect.PropertyInf;
 import entity.*;
+import enums.StateProperties;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class JDBCServiceUser {
     private PropertyInf propertyInf = new PropertyInf();
     private JDBCServiceGeneral<User> serviceGeneral = new JDBCServiceGeneral<>();
 
-    private final String addUserInDB = propertyInf.getSqlQuery().getProperty("INSERT_USER");
+    private final String addUserInDB = propertyInf.getProperties(StateProperties.SQL).getProperty("INSERT_USER");
     public boolean addUserInDB(User user) {
 
         List<String> userFields = new ArrayList<>();

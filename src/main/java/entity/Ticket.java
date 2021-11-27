@@ -1,5 +1,6 @@
 package entity;
 
+import enums.StatusTicket;
 import lombok.Getter;
 import lombok.Setter;
 import java.sql.Timestamp;

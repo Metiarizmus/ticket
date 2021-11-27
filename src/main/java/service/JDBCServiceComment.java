@@ -1,13 +1,10 @@
 package service;
 
-import connect.DBConnection;
 import connect.PropertyInf;
 import entity.Comment;
+import enums.StateProperties;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class JDBCServiceComment {
     private JDBCServiceGeneral<Comment> serviceGeneral = new JDBCServiceGeneral<>();
 
     private PropertyInf propertyInf = new PropertyInf();
-    private final String insertComment = propertyInf.getSqlQuery().getProperty("INSERT_COMMENT");
+    private final String insertComment = propertyInf.getProperties(StateProperties.SQL).getProperty("INSERT_COMMENT");
 
     public boolean addCommentInDB(Comment comment) {
 
